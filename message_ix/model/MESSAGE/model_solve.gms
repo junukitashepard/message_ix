@@ -24,17 +24,18 @@ if (%foresight% = 0,
 
 * write a status update to the log file, solve the model
     put_utility 'log' /'+++ Solve the perfect-foresight version of MESSAGEix +++ ' ;
-    Solve MESSAGE_LP using LP minimizing OBJ ;
+$IF %HHI_CORE% == 0         Solve MESSAGE_MODEL using LP minimizing OBJ ;
+$IF %HHI_CORE% == 1         Solve MESSAGE_MODEL using NLP maximizing MCMA ;
 
 * write model status summary
-    status('perfect_foresight','modelstat') = MESSAGE_LP.modelstat ;
-    status('perfect_foresight','solvestat') = MESSAGE_LP.solvestat ;
-    status('perfect_foresight','resUsd')    = MESSAGE_LP.resUsd ;
-    status('perfect_foresight','objEst')    = MESSAGE_LP.objEst ;
-    status('perfect_foresight','objVal')    = MESSAGE_LP.objVal ;
+    status('perfect_foresight','modelstat') = MESSAGE_MODEL.modelstat ;
+    status('perfect_foresight','solvestat') = MESSAGE_MODEL.solvestat ;
+    status('perfect_foresight','resUsd')    = MESSAGE_MODEL.resUsd ;
+    status('perfect_foresight','objEst')    = MESSAGE_MODEL.objEst ;
+    status('perfect_foresight','objVal')    = MESSAGE_MODEL.objVal ;
 
 * write an error message if model did not solve to optimality
-    IF( NOT ( MESSAGE_LP.modelstat = 1 OR MESSAGE_LP.modelstat = 8 ),
+    IF( NOT ( MESSAGE_MODEL.modelstat = 1 OR MESSAGE_MODEL.modelstat = 8 ),
         put_utility 'log' /'+++ MESSAGEix did not solve to optimality - run is aborted, no output produced! +++ ' ;
         ABORT "MESSAGEix did not solve to optimality!"
     ) ;
@@ -107,17 +108,17 @@ else
 * write a status update and time elapsed to the log file, solve the model
         put_utility 'log' /'+++ Solve the recursive-dynamic version of MESSAGEix - iteration ' year_all.tl:0 '  +++ ' ;
         $$INCLUDE includes/aux_computation_time.gms
-        Solve MESSAGE_LP using LP minimizing OBJ ;
+$IF %HHI_CORE% == 0     Solve MESSAGE_MODEL using LP minimizing OBJ ;
 
 * write model status summary
-        status(year_all,'modelstat') = MESSAGE_LP.modelstat ;
-        status(year_all,'solvestat') = MESSAGE_LP.solvestat ;
-        status(year_all,'resUsd')    = MESSAGE_LP.resUsd ;
-        status(year_all,'objEst')    = MESSAGE_LP.objEst ;
-        status(year_all,'objVal')    = MESSAGE_LP.objVal ;
+        status(year_all,'modelstat') = MESSAGE_MODEL.modelstat ;
+        status(year_all,'solvestat') = MESSAGE_MODEL.solvestat ;
+        status(year_all,'resUsd')    = MESSAGE_MODEL.resUsd ;
+        status(year_all,'objEst')    = MESSAGE_MODEL.objEst ;
+        status(year_all,'objVal')    = MESSAGE_MODEL.objVal ;
 
 * write an error message AND ABORT THE SOLVE LOOP if model did not solve to optimality
-        IF( NOT ( MESSAGE_LP.modelstat = 1 OR MESSAGE_LP.modelstat = 8 ),
+        IF( NOT ( MESSAGE_MODEL.modelstat = 1 OR MESSAGE_MODEL.modelstat = 8 ),
             put_utility 'log' /'+++ MESSAGEix did not solve to optimality - run is aborted, no output produced! +++ ' ;
             ABORT "MESSAGEix did not solve to optimality!"
         ) ;
@@ -136,6 +137,7 @@ else
     ) ; # end of the recursive-dynamic loop
 
 ) ; # end of if statement for the selection betwen perfect-foresight or recursive-dynamic model
+
 
 *----------------------------------------------------------------------------------------------------------------------*
 * post-processing of trade costs and total costs                                                                       *
