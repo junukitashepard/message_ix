@@ -34,11 +34,11 @@ $IF %HHI_CORE% == 1         Solve MESSAGE_MODEL using NLP maximizing MCMA ;
     status('perfect_foresight','objEst')    = MESSAGE_MODEL.objEst ;
     status('perfect_foresight','objVal')    = MESSAGE_MODEL.objVal ;
 
-* write an error message if model did not solve to optimality
-    IF( NOT ( MESSAGE_MODEL.modelstat = 1 OR MESSAGE_MODEL.modelstat = 8 ),
-        put_utility 'log' /'+++ MESSAGEix did not solve to optimality - run is aborted, no output produced! +++ ' ;
-        ABORT "MESSAGEix did not solve to optimality!"
-    ) ;
+*$IF %HHI_CORE% == 0         write an error message if model did not solve to optimality
+*$IF %HHI_CORE% == 0             IF( NOT ( MESSAGE_MODEL.modelstat = 1 OR MESSAGE_MODEL.modelstat = 8 ),
+*$IF %HHI_CORE% == 0             put_utility 'log' /'+++ MESSAGEix did not solve to optimality - run is aborted, no output produced! +++ ' ;
+*$IF %HHI_CORE% == 0          ABORT "MESSAGEix did not solve to optimality!"
+*$IF %HHI_CORE% == 0         ) ;
 
 * rescale the dual of the emission constraint to account that the constraint is defined on the average year, not total
 EMISSION_CONSTRAINT.m(node,type_emission,type_tec,type_year)$(
