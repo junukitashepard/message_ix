@@ -63,6 +63,9 @@ $IF NOT SET SLACK_LAND_TYPE_LO       $SETGLOBAL SLACK_LAND_TYPE_LO "*"
 $IF NOT SET SLACK_RELATION_BOUND_UP  $SETGLOBAL SLACK_RELATION_BOUND_UP "*"
 $IF NOT SET SLACK_RELATION_BOUND_LO  $SETGLOBAL SLACK_RELATION_BOUND_LO "*"
 
+* Specify whether to use MCMA for multiobjective optimization on HHI and cost (NLP)
+* Set to "1" for NLP (i.e., include HHI) or to "0" for LP. Default is "0" (LP).
+$IF NOT SET HHI_CORE                 $SETGLOBAL HHI_CORE "0"
 *----------------------------------------------------------------------------------------------------------------------*
 * initialize sets, mappings, parameters, load data, do pre-processing                                                  *
 *----------------------------------------------------------------------------------------------------------------------*

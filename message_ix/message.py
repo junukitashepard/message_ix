@@ -285,6 +285,7 @@ _set("type_relation")
 _set("type_tec")
 _set("type_year")
 _set("year")
+_set ("member_index")
 
 # Indexed sets
 _set("addon", "t")
@@ -428,6 +429,11 @@ par("tax", "nl type_tec ya")
 par("technical_lifetime", "nl t yv")
 par("time_order", "lvl_temporal h", "Order of sub-annual time slices")
 par("var_cost", "nl t yv ya m h")
+par("cost_base_total", "")
+par("cost_max_total", "")
+par("hhi_min_total", "")
+par("hhi_max_total", "")
+par("include_commodity_hhi", "c l")
 
 # Variables
 var(
@@ -596,6 +602,12 @@ var(
     "n t m l c y h",
     "State of charge (SoC) of storage at each sub-annual time slice (positive)",
 )
+var("MCMA", "", "Objective function (satisfaction level)")
+var("MEMBER", "member_index", "Membership functions")
+var("HHI_TOTAL", "", "Herfindahl-Hirschman Index for diversity")
+var("COST_TOTAL", "", "Total system costs")
+var("HHI_NODE_COMMODITY", "n c l y", "HHI for specific commodity at each node")
+var("COMMODITY_TOTAL", "n c l y", "Total commodity output at node")
 
 # Equations
 equ(
@@ -865,3 +877,10 @@ equ(
 )
 equ("TOTAL_CAPACITY_BOUND_LO", "n inv_tec y", "Lower bound on total installed capacity")
 equ("TOTAL_CAPACITY_BOUND_UP", "n inv_tec y", "Upper bound on total installed capacity")
+equ("EQ_COST_TOTAL", "", "Aggregate total costs")
+equ("EQ_COMMODITY_TOTAL", "n c l y", "Total commodity flow at each node")
+equ("EQ_HHI_NODE_COMMODITY", "n c l y", "HHI for commodity diversity at node")
+equ("EQ_HHI_TOTAL", "", "Aggregate HHI across nodes and commodities")
+equ("EQ_MEMBERSHIP_COST", "", "Cost membership function")
+equ("EQ_MEMBERSHIP_HHI", "", "HHI membership function")
+equ("EQ_MCMA_CONSTRAINT", "", "Max-min constraint")

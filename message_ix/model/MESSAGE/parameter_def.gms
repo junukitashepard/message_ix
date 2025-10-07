@@ -974,4 +974,5 @@ Parameters
     cap_comm          'Equivalent to MESSAGE_CAP_COMM'                 / %MESSAGE_CAP_COMM% /
     ctr               counter parameter for loops
     status(*,*)       model solution status parameter for log writing
+    hhi               'Indicator for whether to run the HHI and cost optimization'      /%HHI_CORE%/
 ;
