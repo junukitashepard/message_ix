@@ -10,6 +10,7 @@ $ONGLOBAL
 *----------------------------------------------------------------------------------------------------------------------*
 
 ** scenario/case selection - this must match the name of the MsgData_<%%%>.gdx input data file **
+*$SETGLOBAL data "NP_SSP2_6.2_base_scenario"
 $SETGLOBAL data "Westeros_Electrified_baseline"
 
 * MACRO mode. This can take 3 possible values, only 2 of which are usable with this file:
@@ -66,8 +67,8 @@ $SETGLOBAL SLACK_RELATION_BOUND_UP "*"
 $SETGLOBAL SLACK_RELATION_BOUND_LO "*"
 
 $SETGLOBAL HHI_CORE "1"
-$SETGLOBAL cost_base_total "99144"
-$SETGLOBAL cost_max_total "198286"
+$SETGLOBAL cost_base_total "99000"
+$SETGLOBAL cost_max_total "7740240"
 * Worst case as 50% greater system costs 
     
 * Set HHI bounds

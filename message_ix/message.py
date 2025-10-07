@@ -433,7 +433,7 @@ par("cost_base_total", "")
 par("cost_max_total", "")
 par("hhi_min_total", "")
 par("hhi_max_total", "")
-par("include_commodity_hhi", "c l")
+par("include_commodity_hhi", "n c l")
 
 # Variables
 var(
