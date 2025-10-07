@@ -260,6 +260,11 @@ VARIABLE
 POSITIVE VARIABLE
     HHI_TOTAL                                   Herfindahl-Hirschman Index for diversity
     COST_TOTAL                                  Total system costs
+    HHI_TEC                                     INSERT HERE
+    HHI_TEC2                                    INSERT HERE
+    HHI_COM2                                    INSERT HERE
+    HHI_S2                                      INSERT HERE
+    HHI_COUNT                                   INSERT HERE
     HHI_NODE_COMMODITY                          HHI for specific commodity at each node
     COMMODITY_TOTAL                             Total commodity output at node
 ;
@@ -344,6 +349,11 @@ $IFTHEN %HHI_CORE% == 1
 Equations
     EQ_COST_TOTAL                   aggregate total costs
     EQ_COMMODITY_TOTAL              total commodity flow at each node
+    EQ_HHI_S2                        INSERT HERE
+    EQ_HHI_TEC                        INSERT HERE
+    EQ_HHI_TEC2                        INSERT HERE
+    EQ_HHI_COM2                        INSERT HERE
+    EQ_HHI_COUNT                    INSERT HERE
     EQ_HHI_NODE_COMMODITY           HHI for commodity diversity at node
     EQ_HHI_TOTAL                    aggregate HHI across nodes and commodities
     EQ_MEMBERSHIP_COST              cost membership function
@@ -2041,7 +2051,7 @@ ACTIVITY_SOFT_CONSTRAINT_LO(node,tec,year,time)$( soft_activity_lo(node,tec,year
 * Set up commodities for inclusion in HHI calculation
 $IFTHEN %HHI_CORE% == 1
 include_commodity_hhi(node, commodity, level) = 0;
-include_commodity_hhi('Westeros', 'electricity', 'secondary') = 1;
+include_commodity_hhi('R12_NAM', 'electr', 'secondary') = 1;
 $ENDIF
 ***
 * Equation EQ_COST_TOTAL
@@ -2059,18 +2069,18 @@ $ENDIF
 * This equation calculates the denominator of the HHI (total commodity at node)
 ***
 $IFTHEN %HHI_CORE% == 1
-EQ_COMMODITY_TOTAL(node,commodity,level,year)$(
+EQ_COMMODITY_TOTAL(node,commodity,level,year,time)$(
     include_commodity_hhi(node,commodity,level)
 )..
-    COMMODITY_TOTAL(node,commodity,level,year) =E=
-        SUM((tec,vintage,mode,time,time2)$(
-            map_tec_lifetime(node,tec,vintage,year)
-            AND map_tec_act(node,tec,year,mode,time)
-            AND map_commodity(node,commodity,level,year,time2)
+    COMMODITY_TOTAL(node,commodity,level,year,time) =E=
+        SUM((location,tec,vintage,mode,time2)$(
+            map_tec_lifetime(location,tec,vintage,year)
+            AND map_tec_act(location,tec,year,mode,time)
+            AND output(location,tec,vintage,year,mode,node,commodity,level,time2,time)
         ),
-            output(node,tec,vintage,year,mode,node,commodity,level,time,time2)
+            output(location,tec,vintage,year,mode,node,commodity,level,time,time2)
             * duration_time_rel(time2,time)
-            * ACT(node,tec,vintage,year,mode,time)
+            * ACT(location,tec,vintage,year,mode,time2)
         ) + 1e-6;
 $ENDIF
 
@@ -2081,46 +2091,75 @@ $IFTHEN %HHI_CORE% == 1
 * """"""""""""""""""""""""""""""
 * This equation calculates the HHI of each commodity (specified) at each node-year
 ***
-EQ_HHI_NODE_COMMODITY(node,commodity,level,year)$(
-    SUM((time),map_commodity(node,commodity,level,year,time))
-    AND include_commodity_hhi(node,commodity,level)
+EQ_HHI_TEC(node,commodity,level,year,time,tec)$(
+    include_commodity_hhi(node,commodity,level)
 )..
-    HHI_NODE_COMMODITY(node,commodity,level,year) =E=
+    HHI_TEC(node,commodity,level,year,time,tec) =E=
+        SUM((location,vintage,mode,time2)$(
+            map_tec_lifetime(location,tec,vintage,year)
+            AND map_tec_act(location,tec,year,mode,time)
+            AND output(location,tec,vintage,year,mode,node,commodity,level,time2,time)
+        ),
+            output(location,tec,vintage,year,mode,node,commodity,level,time,time2)
+            * duration_time_rel(time2,time)
+            * ACT(location,tec,vintage,year,mode,time2)
+        );
+
+EQ_HHI_TEC2(node,commodity,level,year,time,tec)$(
+    include_commodity_hhi(node,commodity,level)
+)..
+    HHI_TEC2(node,commodity,level,year,time,tec) =E=
+        SQR(HHI_TEC(node,commodity,level,year,time,tec))
+*        HHI_TEC(node,commodity,level,year,time,tec)
+        ;
+        
+EQ_HHI_COM2(node,commodity,level,year,time)$(
+    include_commodity_hhi(node,commodity,level)
+)..
+    HHI_COM2(node,commodity,level,year,time) =E=
+        SQR(COMMODITY_TOTAL(node,commodity,level,year,time))
+*        COMMODITY_TOTAL(node,commodity,level,year,time)
+        ;
+       
+EQ_HHI_S2(node,commodity,level,year,time,tec)$(
+    include_commodity_hhi(node,commodity,level)
+)..
+    HHI_S2(node,commodity,level,year,time,tec)*(HHI_COM2(node,commodity,level,year,time))=E=
+        HHI_TEC2(node,commodity,level,year,time,tec)
+        ;
+        
+EQ_HHI_NODE_COMMODITY(node,commodity,level,year,time)$(
+    include_commodity_hhi(node,commodity,level)
+)..
+    HHI_NODE_COMMODITY(node,commodity,level,year,time) =E=
         SUM(tec$(
-            SUM((vintage,mode,time,time2),
-                map_tec_lifetime(node,tec,vintage,year)
-                AND map_tec_act(node,tec,year,mode,time)
-                AND output(node,tec,vintage,year,mode,node,commodity,level,time,time2)
-            )),
-            POWER(
-                SUM((vintage,mode,time,time2)$(
-                    map_tec_lifetime(node,tec,vintage,year)
-                    AND map_tec_act(node,tec,year,mode,time)
-                    AND map_commodity(node,commodity,level,year,time2)
-                ),
-                    (output(node,tec,vintage,year,mode,node,commodity,level,time,time2)
-                    * duration_time_rel(time2,time)
-                    * ACT(node,tec,vintage,year,mode,time)
-                ) / (COMMODITY_TOTAL(node,commodity,level,year) + 1e-6)), 2)
-            );
+        SUM((location,vintage,mode,time2),
+            map_tec_lifetime(location,tec,vintage,year)
+            AND map_tec_act(location,tec,year,mode,time)
+            AND output(location,tec,vintage,year,mode,node,commodity,level,time2,time)
+        )),
+        HHI_S2(node,commodity,level,year,time,tec)
+        );
+
 $ENDIF
 
 $IFTHEN %HHI_CORE% == 1
 ***
 * Equation EQ_SYSTEM_HHI
 * """""""""""""""""""""""
-* This equation sums the HHI across the whole system
+* This equation averages the HHI across the whole system
 ***
-EQ_HHI_TOTAL..
-    HHI_TOTAL =E=
+EQ_HHI_COUNT..
+    HHI_COUNT =E=
         SUM((node,commodity,level,year)$(
-            SUM((time), map_commodity(node,commodity,level,year,time))
-            AND include_commodity_hhi(node,commodity,level)
+            include_commodity_hhi(node,commodity,level)), 1);
+
+EQ_HHI_TOTAL..
+    HHI_TOTAL*HHI_COUNT =E=
+        SUM((node,commodity,level,year,time)$(
+            include_commodity_hhi(node,commodity,level)
             ),
-            HHI_NODE_COMMODITY(node,commodity,level,year)) / 
-            (SUM((node,commodity,level,year)$(
-                SUM((time), map_commodity(node,commodity,level,year,time))
-                AND include_commodity_hhi(node,commodity,level)), 1) + 1e-6);
+            HHI_NODE_COMMODITY(node,commodity,level,year,time));
 $ENDIF
 
 $IFTHEN %HHI_CORE% == 1

@@ -22,7 +22,7 @@ option RESLIM = 1e6 ;   # resource limit (in seconds; 1e6 is approximately 11 da
 * helps even if the previous run did not solve to optimality
 option LP = CPLEX ;
 option QCP = CPLEX ; 
-option NLP = CONOPT ;
+option NLP = CONOPT3 ;
 option MCP = PATH ;
 
 *option solveopt=clear ;# remove results of previous runs in memory
