@@ -262,6 +262,7 @@ POSITIVE VARIABLE
     COST_TOTAL                                  Total system costs
     COM_TOTAL                                   Total commodity by level and node (the denominator of HHI before 2)
     TEC_TOTAL                                   Total technology by commodity-level-node (the numerator of HHI before 2)
+    HHI_S                                       Squared share
     HHI_COUNT                                   Total number of commodity-level-node that should be averaged for system average HHI
 ;
 
@@ -348,6 +349,7 @@ Equations
     EQ_TEC_TOTAL                    Total technology flow for each node-level-commodity
     EQ_HHI_COUNT                    Total number of node-level-commodities to average system-wide HHI
     EQ_HHI_TOTAL                    aggregate HHI across nodes and commodities
+    EQ_HHI_S                        share
     EQ_MEMBERSHIP_COST              cost membership function
     EQ_MEMBERSHIP_HHI               HHI membership function
     EQ_MCMA_CONSTRAINT              max-min constraint
@@ -2099,6 +2101,20 @@ $ENDIF
 
 $IFTHEN %HHI_CORE% == 1
 ***
+* Equation EQ_HHI_S
+* """"""""""""""""""""""""""""""
+* This equation calculates the technology share
+***
+EQ_HHI_S(node,commodity,level,year,time,tec)$(
+    include_commodity_hhi(node,commodity,level)
+)..
+    HHI_S(node,commodity,level,year,time,tec)*
+        COM_TOTAL(node,commodity,level,year,time) =E=
+            TEC_TOTAL(node,commodity,level,year,time,tec);
+$ENDIF
+
+$IFTHEN %HHI_CORE% == 1
+***
 * Equation EQ_SYSTEM_HHI
 * """""""""""""""""""""""
 * This equation averages the HHI across the whole system
@@ -2109,16 +2125,12 @@ EQ_HHI_COUNT..
             include_commodity_hhi(node,commodity,level)), 1);
         
 EQ_HHI_TOTAL..
-    HHI_TOTAL*HHI_COUNT*
-        SUM((node,commodity,level,year,time)$(
-            include_commodity_hhi(node,commodity,level)),
-            SQR(COM_TOTAL(node,commodity,level,year,time)))            
-=E=
+    HHI_TOTAL*HHI_COUNT =E=
         SUM((node,commodity,level,year,time)$(
             include_commodity_hhi(node,commodity,level)),
             SUM(tec$(
                 include_commodity_hhi(node,commodity,level)),
-                SQR(TEC_TOTAL(node,commodity,level,year,time,tec))));
+                SQR(HHI_S(node,commodity,level,year,time,tec))));
 $ENDIF
 
 $IFTHEN %HHI_CORE% == 1
