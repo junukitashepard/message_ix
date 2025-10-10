@@ -285,7 +285,7 @@ _set("type_relation")
 _set("type_tec")
 _set("type_year")
 _set("year")
-_set ("member_index")
+_set("member_index")
 
 # Indexed sets
 _set("addon", "t")
@@ -606,8 +606,10 @@ var("MCMA", "", "Objective function (satisfaction level)")
 var("MEMBER", "member_index", "Membership functions")
 var("HHI_TOTAL", "", "Herfindahl-Hirschman Index for diversity")
 var("COST_TOTAL", "", "Total system costs")
-var("HHI_NODE_COMMODITY", "n c l y", "HHI for specific commodity at each node")
-var("COMMODITY_TOTAL", "n c l y", "Total commodity output at node")
+var("COM_TOTAL", "n c l y", "Total commodity output at node")
+var("TEC_TOTAL", "n c l y", "Total technology output at node")
+var("HHI_COUNT", "", "Total number of node-level-commodities to average system-wide HHI")
+var("HHI_S", "n c l y", "Share of technology output at node")
 
 # Equations
 equ(
@@ -877,9 +879,12 @@ equ(
 )
 equ("TOTAL_CAPACITY_BOUND_LO", "n inv_tec y", "Lower bound on total installed capacity")
 equ("TOTAL_CAPACITY_BOUND_UP", "n inv_tec y", "Upper bound on total installed capacity")
+
 equ("EQ_COST_TOTAL", "", "Aggregate total costs")
-equ("EQ_COMMODITY_TOTAL", "n c l y", "Total commodity flow at each node")
-equ("EQ_HHI_NODE_COMMODITY", "n c l y", "HHI for commodity diversity at node")
+equ("EQ_COM_TOTAL", "n c l y", "Total commodity flow at each node")
+equ("EQ_TEC_TOTAL", "n c l y", "Total technology flow at each node")
+equ("EQ_HHI_COUNT", "", "Total number of node-level-commodities to average system-wide HHI")
+equ("EQ_HHI_S", "n c l y", "Share of technology output at node")
 equ("EQ_HHI_TOTAL", "", "Aggregate HHI across nodes and commodities")
 equ("EQ_MEMBERSHIP_COST", "", "Cost membership function")
 equ("EQ_MEMBERSHIP_HHI", "", "HHI membership function")
