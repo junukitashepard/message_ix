@@ -44,26 +44,26 @@ def _hhi_westeros_test(
 
     with scen.transact("Add hhi parameters"):
         cost_base_total_df = pd.DataFrame(
-            {"time": "year", "value": cost_base_total, }, index=[0])
+            {"value": cost_base_total, }, index=[0])
         scen.add_par("cost_base_total", cost_base_total_df)
 
         cost_max_total_df = pd.DataFrame(
-            {"time": "year", "value": cost_max_total, }, index=[0])
+            {"value": cost_max_total, }, index=[0])
         scen.add_par("cost_max_total", cost_max_total_df)
 
         hhi_min_total_df = pd.DataFrame(
-            {"time": "year", "value": hhi_min_total, }, index=[0])
+            {"value": hhi_min_total, }, index=[0])
         scen.add_par("hhi_min_total", hhi_min_total_df)
 
         hhi_max_total_df = pd.DataFrame(
-            {"time": "year", "value": hhi_max_total, }, index=[0])
+            {"value": hhi_max_total, }, index=[0])
         scen.add_par("hhi_max_total", hhi_max_total_df)
 
         include_commodity_hhi_df = pd.DataFrame(
             {"node": "Westeros", "commodity": "electricity", "level": "secondary", "value": 1, }, index=[0])
         scen.add_par("include_commodity_hhi", include_commodity_hhi_df)
 
-    scen.solve(model="MESSAGE", solve_options={"hhi": "1"}, quiet=True)
+    scen.solve(model="MESSAGE", HHI_CORE=1, quiet=True)
 
     # Extract HHI_TOTAL
     print(f"HHI_TOTAL: {scen.var('HHI_TOTAL')['lvl']}")
@@ -71,7 +71,7 @@ def _hhi_westeros_test(
     # Extract activity
     activity = scen.var('ACT')
     activity = activity[(activity['year_act'] == 700) & (activity['technology'].isin(['coal_ppl', 'wind_ppl']))]
-    print("Activity in 700: hhi = 1")
+    print("Activity in 700")
     print(f"{activity}")
 
     return scen
