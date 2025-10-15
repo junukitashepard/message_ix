@@ -245,36 +245,6 @@ Positive variables
 ;
 
 *----------------------------------------------------------------------------------------------------------------------*
-* variables for HHI optimization (fuzzy MCMA)                                           *
-*----------------------------------------------------------------------------------------------------------------------*
-$IFTHEN %HHI_CORE% == 1
-SET 
-    member_index                        'membership function index' / obj1*obj2 /
-;
-
-VARIABLE
-    MCMA                                objective function (satisfaction level)
-    MEMBER(member_index)                membership functions
-;
-
-POSITIVE VARIABLE
-    HHI_TOTAL                                   Herfindahl-Hirschman Index for diversity
-    COST_TOTAL                                  Total system costs
-    COM_TOTAL                                   Total commodity by level and node (the denominator of HHI before 2)
-    TEC_TOTAL                                   Total technology by commodity-level-node (the numerator of HHI before 2)
-    HHI_S                                       Squared share
-    HHI_COUNT                                   Total number of commodity-level-node that should be averaged for system average HHI
-;
-
-Parameter
-    cost_base_total                                     baseline scenario cost
-    cost_max_total                                      maximum scenario costs
-    hhi_min_total                                       minimum HHI value (0)
-    hhi_max_total                                       maximum HHI value (1)
-    include_commodity_hhi(node, commodity, level)       binary for whether to include commodity in HHI (1 = include)
-;
-$ENDIF
-*----------------------------------------------------------------------------------------------------------------------*
 * equation definitions                                                                                                 *
 *----------------------------------------------------------------------------------------------------------------------*
 Equations
@@ -2044,7 +2014,7 @@ ACTIVITY_SOFT_CONSTRAINT_LO(node,tec,year,time)$( soft_activity_lo(node,tec,year
 ***
 * Set up commodities for inclusion in HHI calculation
 $IFTHEN %HHI_CORE% == 1
-include_commodity_hhi(node, commodity, level) = 0;
+*include_commodity_hhi(node, commodity, level) = 0;
 *include_commodity_hhi('Westeros', 'electricity', 'secondary') = 1;
 $ENDIF
 ***
@@ -2145,10 +2115,10 @@ $IFTHEN %HHI_CORE% == 1
 * This equation sums the HHI across the whole system
 ***
 EQ_MEMBERSHIP_COST..
-    MEMBER('obj1') =E= (%cost_max_total% - COST_TOTAL)/(%cost_max_total% - %cost_base_total%);
+    MEMBER('obj1') =E= (cost_max_total - COST_TOTAL)/(cost_max_total - cost_base_total);
 
 EQ_MEMBERSHIP_HHI..
-    MEMBER('obj2') =E= (%hhi_max_total% - HHI_TOTAL)/(%hhi_max_total% - %hhi_min_total%);
+    MEMBER('obj2') =E= (hhi_max_total - HHI_TOTAL)/(hhi_max_total - hhi_min_total);
 
 EQ_MCMA_CONSTRAINT(member_index)..
     MCMA - MEMBER(member_index) =L= 0;

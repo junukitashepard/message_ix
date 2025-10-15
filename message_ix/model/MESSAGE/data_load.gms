@@ -166,6 +166,17 @@ execute_load '%in%',
 
 $ENDIF
 
+$IFTHEN %HHI_CORE% == "1"
+execute_load '%in%',
+  include_commodity_hhi
+  cost_max_total
+  cost_base_total
+  hhi_max_total
+  hhi_min_total
+;
+
+$ENDIF
+
 *----------------------------------------------------------------------------------------------------------------------*
 * Sets derived from input sets                                                                                         *
 *----------------------------------------------------------------------------------------------------------------------*

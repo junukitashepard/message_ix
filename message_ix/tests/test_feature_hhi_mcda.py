@@ -44,16 +44,16 @@ def _hhi_westeros_test(
 
     with scen.transact("Add hhi parameters"):
 
-        scen.change_scalar("cost_base_total", cost_base_total, "USD")
-        scen.change_scalar("cost_max_total", cost_max_total, "USD")
-        scen.change_scalar("hhi_min_total", hhi_min_total, "???")
-        scen.change_scalar("hhi_max_total", hhi_max_total, "???")
+        scen.init_scalar("cost_base_total", cost_base_total, "USD")
+        scen.init_scalar("cost_max_total", cost_max_total, "USD")
+        scen.init_scalar("hhi_min_total", hhi_min_total, "???")
+        scen.init_scalar("hhi_max_total", hhi_max_total, "???")
 
         include_commodity_hhi_df = pd.DataFrame(
             {"node": "Westeros", "commodity": "electricity", "level": "secondary", "value": 1, }, index=[0])
         scen.add_par("include_commodity_hhi", include_commodity_hhi_df)
 
-    scen.solve(model="MESSAGE", HHI_CORE=0, quiet=True)
+    scen.solve(gams_args=["--HHI_CORE=0"], quiet=False)
 
     # Extract HHI_TOTAL
     print(f"HHI_TOTAL: {scen.var('HHI_TOTAL')['lvl']}")

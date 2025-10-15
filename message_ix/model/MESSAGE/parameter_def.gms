@@ -974,5 +974,39 @@ Parameters
     cap_comm          'Equivalent to MESSAGE_CAP_COMM'                 / %MESSAGE_CAP_COMM% /
     ctr               counter parameter for loops
     status(*,*)       model solution status parameter for log writing
-    hhi               'Indicator for whether to run the HHI and cost optimization'      /%HHI_CORE%/
+    HHI_CORE               'Indicator for whether to run the HHI and cost optimization'
 ;
+
+*----------------------------------------------------------------------------------------------------------------------*
+* HHI WORKFLOW                                                                              *
+*----------------------------------------------------------------------------------------------------------------------*
+$IFTHEN %HHI_CORE% == "1"
+SET 
+    member_index                        'membership function index' / obj1*obj2 /
+;
+
+VARIABLE
+    MCMA                                objective function (satisfaction level)
+    MEMBER(member_index)                membership functions
+;
+
+POSITIVE VARIABLE
+    HHI_TOTAL                                   Herfindahl-Hirschman Index for diversity
+    COST_TOTAL                                  Total system costs
+    COM_TOTAL                                   Total commodity by level and node (the denominator of HHI before 2)
+    TEC_TOTAL                                   Total technology by commodity-level-node (the numerator of HHI before 2)
+    HHI_S                                       Squared share
+    HHI_COUNT                                   Total number of commodity-level-node that should be averaged for system average HHI
+;
+
+Parameter
+    include_commodity_hhi(node, commodity, level)       binary for whether to include commodity in HHI (1 = include)
+;
+
+Scalar
+    cost_max_total
+    cost_base_total
+    hhi_max_total
+    hhi_min_total
+;
+$ENDIF
