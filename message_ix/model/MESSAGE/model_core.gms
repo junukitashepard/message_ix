@@ -2045,7 +2045,7 @@ ACTIVITY_SOFT_CONSTRAINT_LO(node,tec,year,time)$( soft_activity_lo(node,tec,year
 * Set up commodities for inclusion in HHI calculation
 $IFTHEN %HHI_CORE% == 1
 include_commodity_hhi(node, commodity, level) = 0;
-include_commodity_hhi('Westeros', 'electricity', 'secondary') = 1;
+*include_commodity_hhi('Westeros', 'electricity', 'secondary') = 1;
 $ENDIF
 ***
 * Equation EQ_COST_TOTAL

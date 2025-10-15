@@ -66,14 +66,14 @@ $SETGLOBAL SLACK_LAND_TYPE_LO "*"
 $SETGLOBAL SLACK_RELATION_BOUND_UP "*"
 $SETGLOBAL SLACK_RELATION_BOUND_LO "*"
 
-$SETGLOBAL HHI_CORE "1"
-$SETGLOBAL cost_base_total "2500000"
-$SETGLOBAL cost_max_total "7000000"
+*$SETGLOBAL HHI_CORE "1"
+*$SETGLOBAL cost_base_total "2500000"
+*$SETGLOBAL cost_max_total "7000000"
 * Worst case as 50% greater system costs 
     
 * Set HHI bounds
-$SETGLOBAL hhi_min_total "0"
-$SETGLOBAL hhi_max_total "1"
+*$SETGLOBAL hhi_min_total "0"
+*$SETGLOBAL hhi_max_total "1"
     
 *----------------------------------------------------------------------------------------------------------------------*
 * launch the MESSAGEix or MESSAGEix-MACRO run file with the settings as defined above                                      *

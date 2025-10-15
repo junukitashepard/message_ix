@@ -758,6 +758,16 @@ class Scenario(ixmp.Scenario):
             *model_options* described for :class:`.MESSAGE`, :class:`.MACRO`,
             :class:`.MESSAGE_MACRO`, and :class:`.GAMSModel`.
         """
+        if "HHI_CORE" not in kwargs and model.startswith("MESSAGE"):
+            try:
+                hhi_df = self.par("include_commodity_hhi")
+                if not hhi_df.empty:
+                    kwargs["HHI_CORE"] = "1"
+                    print("HHI_CORE = 1")
+            except KeyError:
+                kwargs["HHI_CORE"] = "0"
+                print("HHI_CORE = 0")
+
         super().solve(model=model, solve_options=solve_options, **kwargs)
 
     def add_macro(
