@@ -44,19 +44,19 @@ def _hhi_westeros_test(
 
     with scen.transact("Add hhi parameters"):
         cost_base_total_df = pd.DataFrame(
-            {"value": cost_base_total, }, index=[0])
+            {"mode": "M1", "value": cost_base_total, }, index=[0])
         scen.add_par("cost_base_total", cost_base_total_df)
 
         cost_max_total_df = pd.DataFrame(
-            {"value": cost_max_total, }, index=[0])
+            {"mode": "M1", "value": cost_max_total, }, index=[0])
         scen.add_par("cost_max_total", cost_max_total_df)
 
         hhi_min_total_df = pd.DataFrame(
-            {"value": hhi_min_total, }, index=[0])
+            {"mode": "M1", "value": hhi_min_total, }, index=[0])
         scen.add_par("hhi_min_total", hhi_min_total_df)
 
         hhi_max_total_df = pd.DataFrame(
-            {"value": hhi_max_total, }, index=[0])
+            {"mode": "M1", "value": hhi_max_total, }, index=[0])
         scen.add_par("hhi_max_total", hhi_max_total_df)
 
         include_commodity_hhi_df = pd.DataFrame(
