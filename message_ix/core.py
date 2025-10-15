@@ -763,10 +763,8 @@ class Scenario(ixmp.Scenario):
                 hhi_df = self.par("include_commodity_hhi")
                 if not hhi_df.empty:
                     kwargs["HHI_CORE"] = "1"
-                    print("HHI_CORE = 1")
             except KeyError:
                 kwargs["HHI_CORE"] = "0"
-                print("HHI_CORE = 0")
 
         super().solve(model=model, solve_options=solve_options, **kwargs)
 

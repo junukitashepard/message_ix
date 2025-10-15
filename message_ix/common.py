@@ -199,12 +199,12 @@ class GAMSModel(ixmp.model.gams.GAMSModel):
         self.cplex_opts.update(model_options.pop("solve_options", {}))
 
         # Add option for Herfindahl-Hirschman Index optimization
-        if "HHI_CORE" in model_options:
-            hhi = model_options.pop("HHI_CORE")
-            # Add HHI_CORE to gams_args
-            if "gams_args" not in model_options:
-                model_options["gams_args"] = []
-            model_options["gams_args"].append(f"--HHI_CORE={hhi}")
+        #if "HHI_CORE" in model_options:
+        #    hhi = model_options.pop("HHI_CORE")
+        #    # Add HHI_CORE to gams_args
+        #    if "gams_args" not in model_options:
+        #        model_options["gams_args"] = []
+        #    model_options["gams_args"].append(f"--HHI_CORE={hhi}")
 
         super().__init__(name, **model_options)
 

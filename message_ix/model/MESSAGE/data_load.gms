@@ -400,3 +400,6 @@ loop( (node,tec,year_all,commodity,level,time)$(
 if (check,
     abort "There is a problem with assignment of rating bins!" ;
 ) ;
+
+* HHI values
+$IF %HHI_CORE% == 1 display "HHI mode active";

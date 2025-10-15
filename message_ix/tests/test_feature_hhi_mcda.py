@@ -41,6 +41,7 @@ def _hhi_westeros_test(
     mp = Platform()
     base = make_westeros(mp, emissions=True, solve=False)
     scen = base.clone(model='hhi_test', scenario='Westeros', keep_solution = False)
+    scen.set_as_default()
 
     with scen.transact("Add hhi parameters"):
 
@@ -53,8 +54,8 @@ def _hhi_westeros_test(
             {"node": "Westeros", "commodity": "electricity", "level": "secondary", "value": 1, }, index=[0])
         scen.add_par("include_commodity_hhi", include_commodity_hhi_df)
 
-    scen.solve(gams_args=["--HHI_CORE=0"], quiet=False)
-
+    scen.solve(gams_args=["--HHI_CORE=1"], quiet=True)
+    #scen.solve()
     # Extract HHI_TOTAL
     print(f"HHI_TOTAL: {scen.var('HHI_TOTAL')['lvl']}")
 
@@ -69,3 +70,19 @@ def _hhi_westeros_test(
 # Build and run the scenario
 hhi_westeros = _hhi_westeros_test()
 
+mp = Platform()
+scen = Scenario(mp, model='hhi_test', scenario='Westeros')
+scen.remove_solution()
+
+with scen.transact("Add hhi parameters"):
+    scen.init_scalar("cost_base_total", 1, "USD")
+
+scen.init_scalar("cost_max_total", cost_max_total, "USD")
+scen.init_scalar("hhi_min_total", hhi_min_total, "???")
+scen.init_scalar("hhi_max_total", hhi_max_total, "???")
+
+include_commodity_hhi_df = pd.DataFrame(
+    {"node": "Westeros", "commodity": "electricity", "level": "secondary", "value": 1, }, index=[0])
+scen.add_par("include_commodity_hhi", include_commodity_hhi_df)
+
+scen.solve(gams_args=["--HHI_CORE=1"])
