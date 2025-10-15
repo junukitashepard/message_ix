@@ -2105,11 +2105,6 @@ $IFTHEN %HHI_CORE% == 1
 * """"""""""""""""""""""""""""""""""""""""""""""""""
 * These equations define the memberships used in the MCMA (i.e., cost and HHI)
 ***
-***
-* Equation EQ_SYSTEM_HHI
-* """""""""""""""""""""""
-* This equation sums the HHI across the whole system
-***
 EQ_MEMBERSHIP_COST..
     MEMBER('obj1') =E= (cost_max_total - COST_TOTAL)/(cost_max_total - cost_base_total);
 
