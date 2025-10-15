@@ -43,27 +43,17 @@ def _hhi_westeros_test(
     scen = base.clone(model='hhi_test', scenario='Westeros', keep_solution = False)
 
     with scen.transact("Add hhi parameters"):
-        cost_base_total_df = pd.DataFrame(
-            {"mode": "M1", "value": cost_base_total, }, index=[0])
-        scen.add_par("cost_base_total", cost_base_total_df)
 
-        cost_max_total_df = pd.DataFrame(
-            {"mode": "M1", "value": cost_max_total, }, index=[0])
-        scen.add_par("cost_max_total", cost_max_total_df)
-
-        hhi_min_total_df = pd.DataFrame(
-            {"mode": "M1", "value": hhi_min_total, }, index=[0])
-        scen.add_par("hhi_min_total", hhi_min_total_df)
-
-        hhi_max_total_df = pd.DataFrame(
-            {"mode": "M1", "value": hhi_max_total, }, index=[0])
-        scen.add_par("hhi_max_total", hhi_max_total_df)
+        scen.change_scalar("cost_base_total", cost_base_total, "USD")
+        scen.change_scalar("cost_max_total", cost_max_total, "USD")
+        scen.change_scalar("hhi_min_total", hhi_min_total, "???")
+        scen.change_scalar("hhi_max_total", hhi_max_total, "???")
 
         include_commodity_hhi_df = pd.DataFrame(
             {"node": "Westeros", "commodity": "electricity", "level": "secondary", "value": 1, }, index=[0])
         scen.add_par("include_commodity_hhi", include_commodity_hhi_df)
 
-    scen.solve(model="MESSAGE", HHI_CORE=1, quiet=True)
+    scen.solve(model="MESSAGE", HHI_CORE=0, quiet=True)
 
     # Extract HHI_TOTAL
     print(f"HHI_TOTAL: {scen.var('HHI_TOTAL')['lvl']}")

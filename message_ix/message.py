@@ -429,11 +429,12 @@ par("tax", "nl type_tec ya")
 par("technical_lifetime", "nl t yv")
 par("time_order", "lvl_temporal h", "Order of sub-annual time slices")
 par("var_cost", "nl t yv ya m h")
-par("cost_base_total", "m")
-par("cost_max_total", "m")
-par("hhi_min_total", "m")
-par("hhi_max_total", "m")
-par("include_commodity_hhi", "n c l")
+
+#scalar("cost_base_total")
+#scalar("cost_max_total")
+#scalar("hhi_min_total")
+#scalar("hhi_max_total")
+#scalar("include_commodity_hhi", "n c l")
 
 # Variables
 var(
