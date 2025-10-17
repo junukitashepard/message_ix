@@ -311,20 +311,6 @@ Equations
     STORAGE_BALANCE_INIT            balance of the state of charge of storage at sub-annual time slices with initial storage content
     STORAGE_INPUT                   connecting an input commodity to maintain the activity of storage container (not stored commodity)
 ;
-
-$IFTHEN %HHI_CORE% == 1
-Equations
-    EQ_COST_TOTAL                   Aggregate total costs
-    EQ_COM_TOTAL                    Total commodity flow at each node-level
-    EQ_TEC_TOTAL                    Total technology flow for each node-level-commodity
-    EQ_HHI_COUNT                    Total number of node-level-commodities to average system-wide HHI
-    EQ_HHI_TOTAL                    aggregate HHI across nodes and commodities
-    EQ_HHI_S                        share
-    EQ_MEMBERSHIP_COST              cost membership function
-    EQ_MEMBERSHIP_HHI               HHI membership function
-    EQ_MCMA_CONSTRAINT              max-min constraint
-;
-$ENDIF
 *----------------------------------------------------------------------------------------------------------------------*
 * equation statements                                                                                                  *
 *----------------------------------------------------------------------------------------------------------------------*
@@ -2004,122 +1990,6 @@ ACTIVITY_SOFT_CONSTRAINT_LO(node,tec,year,time)$( soft_activity_lo(node,tec,year
       + SUM((mode,year_all2)$( seq_period(year_all2,year) ),
             historical_activity(node,tec,year_all2,mode,time) ) $ first_period(year)
 ;
-
-*----------------------------------------------------------------------------------------------------------------------*
-***
-* .. _section_hhi:
-*
-* Herfindahl-Hirschmann Index (HHI)
-* ----------------------------------
-***
-* Set up commodities for inclusion in HHI calculation
-***
-* Equation EQ_COST_TOTAL
-* """"""""""""""""""""""
-* This equation is the same as the objective function, for use in the MCMA.
-***
-$IFTHEN %HHI_CORE% == 1
-EQ_COST_TOTAL..
-    COST_TOTAL =E= SUM((node,year), df_period(year) * COST_NODAL(node,year));
-$ENDIF
-
-***
-* Equation EQ_COM_TOTAL
-* """""""""""""""""""""""""""
-* This equation calculates the denominator of the HHI (total commodity at node)
-***
-$IFTHEN %HHI_CORE% == 1
-EQ_COM_TOTAL(node,commodity,level,year,time)$(
-    include_commodity_hhi(node,commodity,level)
-)..
-    COM_TOTAL(node,commodity,level,year,time) =E=
-        SUM((location,tec,vintage,mode,time2)$(
-            map_tec_lifetime(location,tec,vintage,year)
-            AND map_tec_act(location,tec,year,mode,time)
-            AND output(location,tec,vintage,year,mode,node,commodity,level,time2,time)
-        ),
-            output(location,tec,vintage,year,mode,node,commodity,level,time,time2)
-            * duration_time_rel(time2,time)
-            * ACT(location,tec,vintage,year,mode,time2)
-        ) + 1e-6;
-$ENDIF
-
-$IFTHEN %HHI_CORE% == 1
-***
-* Equation EQ_TEC_TOTAL
-* """"""""""""""""""""""""""""""
-* This equation calculates the numerator of HHI (commodity by technology-node-level)
-***
-EQ_TEC_TOTAL(node,commodity,level,year,time,tec)$(
-    include_commodity_hhi(node,commodity,level)
-)..
-    TEC_TOTAL(node,commodity,level,year,time,tec) =E=
-        SUM((location,vintage,mode,time2)$(
-            map_tec_lifetime(location,tec,vintage,year)
-            AND map_tec_act(location,tec,year,mode,time)
-            AND output(location,tec,vintage,year,mode,node,commodity,level,time2,time)
-        ),
-            output(location,tec,vintage,year,mode,node,commodity,level,time,time2)
-            * duration_time_rel(time2,time)
-            * ACT(location,tec,vintage,year,mode,time2)
-        );
-$ENDIF
-
-$IFTHEN %HHI_CORE% == 1
-***
-* Equation EQ_HHI_S
-* """"""""""""""""""""""""""""""
-* This equation calculates the technology share
-***
-EQ_HHI_S(node,commodity,level,year,time,tec)$(
-    include_commodity_hhi(node,commodity,level)
-)..
-    HHI_S(node,commodity,level,year,time,tec)*
-        COM_TOTAL(node,commodity,level,year,time) =E=
-            TEC_TOTAL(node,commodity,level,year,time,tec);
-$ENDIF
-
-$IFTHEN %HHI_CORE% == 1
-***
-* Equation EQ_SYSTEM_HHI
-* """""""""""""""""""""""
-* This equation averages the HHI across the whole system
-***
-EQ_HHI_COUNT..
-    HHI_COUNT =E=
-        SUM((node,commodity,level,year,time)$(
-            include_commodity_hhi(node,commodity,level)), 1);
-        
-EQ_HHI_TOTAL..
-    HHI_TOTAL*HHI_COUNT =E=
-        SUM((node,commodity,level,year,time)$(
-            include_commodity_hhi(node,commodity,level)),
-            SUM(tec$(
-                include_commodity_hhi(node,commodity,level)),
-                SQR(HHI_S(node,commodity,level,year,time,tec))));
-$ENDIF
-
-$IFTHEN %HHI_CORE% == 1
-***
-* Equations for membership functions for use in MCMA
-* """"""""""""""""""""""""""""""""""""""""""""""""""
-* These equations define the memberships used in the MCMA (i.e., cost and HHI)
-***
-***
-* Equation EQ_SYSTEM_HHI
-* """""""""""""""""""""""
-* This equation sums the HHI across the whole system
-***
-EQ_MEMBERSHIP_COST..
-    MEMBER('obj1') =E= (cost_max_total - COST_TOTAL)/(cost_max_total - cost_base_total);
-
-EQ_MEMBERSHIP_HHI..
-    MEMBER('obj2') =E= (hhi_max_total - HHI_TOTAL)/(hhi_max_total - hhi_min_total);
-
-EQ_MCMA_CONSTRAINT(member_index)..
-    MCMA - MEMBER(member_index) =L= 0;
-$ENDIF
-
 *----------------------------------------------------------------------------------------------------------------------*
 ***
 * .. _section_emission:
@@ -2614,10 +2484,14 @@ STORAGE_INPUT(node,storage_tec,level,commodity,level_storage,commodity2,mode,yea
 ;
 
 *----------------------------------------------------------------------------------------------------------------------*
+* Add specified HHI mode                                                                                                     *
+*----------------------------------------------------------------------------------------------------------------------*
+$IFTHEN %HHI_MCMA% == 1
+$INCLUDE MESSAGE/hhi_mcma.gms
+$ENDIF
+*----------------------------------------------------------------------------------------------------------------------*
 * model statements                                                                                                     *
 *----------------------------------------------------------------------------------------------------------------------*
-* Set MCMA bounds
-$IF %HHI_CORE% == 1 MCMA.LO = 0;
 Model MESSAGE_MODEL / all / ;
 MESSAGE_MODEL.holdfixed = 1 ;
 MESSAGE_MODEL.optfile = 1 ;

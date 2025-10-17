@@ -24,8 +24,8 @@ if (%foresight% = 0,
 
 * write a status update to the log file, solve the model
     put_utility 'log' /'+++ Solve the perfect-foresight version of MESSAGEix +++ ' ;
-$IF %HHI_CORE% == 0         Solve MESSAGE_MODEL using LP minimizing OBJ ;
-$IF %HHI_CORE% == 1         Solve MESSAGE_MODEL using QCP maximizing MCMA ;
+$IF %HHI_MCMA% == 0         Solve MESSAGE_MODEL using LP minimizing OBJ ;
+$IF %HHI_MCMA% == 1         Solve MESSAGE_MODEL using QCP maximizing MCMA ;
 
 * write model status summary
     status('perfect_foresight','modelstat') = MESSAGE_MODEL.modelstat ;

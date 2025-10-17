@@ -166,7 +166,7 @@ execute_load '%in%',
 
 $ENDIF
 
-$IFTHEN %HHI_CORE% == "1"
+$IFTHEN %HHI_MCMA% == "1"
 execute_load '%in%',
   include_commodity_hhi
   cost_max_total
@@ -402,4 +402,4 @@ if (check,
 ) ;
 
 * HHI values
-$IF %HHI_CORE% == 1 display "HHI mode active";
+$IF %HHI_MCMA% == 1 display "HHI MCMA mode active";
