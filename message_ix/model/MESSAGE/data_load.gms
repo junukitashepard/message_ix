@@ -174,7 +174,12 @@ execute_load '%in%',
   hhi_max_total
   hhi_min_total
 ;
+$ENDIF
 
+$IFTHEN %HHI_CONSTRAINT% == "1"
+execute_load '%in%',
+  hhi_limit
+;
 $ENDIF
 
 *----------------------------------------------------------------------------------------------------------------------*
@@ -403,3 +408,4 @@ if (check,
 
 * HHI values
 $IF %HHI_MCMA% == 1 display "HHI MCMA mode active";
+$IF %HHI_CONSTRAINT% == 1 display "HHI hard constraint mode active";

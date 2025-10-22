@@ -85,4 +85,4 @@ include_commodity_hhi_df = pd.DataFrame(
     {"node": "Westeros", "commodity": "electricity", "level": "secondary", "value": 1, }, index=[0])
 scen.add_par("include_commodity_hhi", include_commodity_hhi_df)
 
-scen.solve(gams_args=["--HHI_CORE=1"])
+scen.solve(gams_args=["--HHI_MCMA=1"])

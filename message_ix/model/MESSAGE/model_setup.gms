@@ -64,8 +64,12 @@ $IF NOT SET SLACK_RELATION_BOUND_UP  $SETGLOBAL SLACK_RELATION_BOUND_UP "*"
 $IF NOT SET SLACK_RELATION_BOUND_LO  $SETGLOBAL SLACK_RELATION_BOUND_LO "*"
 
 * Specify whether to use MCMA for multiobjective optimization on HHI and cost (NLP)
-* Set to "1" for NLP (i.e., include HHI) or to "0" for LP. Default is "0" (LP).
+* Set to "1" for NLP (i.e., include HHI MCMA) or to "0" for LP. Default is "0" (LP).
 $IF NOT SET HHI_MCMA                 $SETGLOBAL HHI_MCMA "0"
+
+* Specify whether to use HHI hard constraint (QCP)
+* Set to "1" for QCP (i.e., include HHI constraint) or to "0" for LP. Default is "0" (LP).
+$IF NOT SET HHI_CONSTRAINT           $SETGLOBAL HHI_CONSTRAINT "0"
 *----------------------------------------------------------------------------------------------------------------------*
 * initialize sets, mappings, parameters, load data, do pre-processing                                                  *
 *----------------------------------------------------------------------------------------------------------------------*

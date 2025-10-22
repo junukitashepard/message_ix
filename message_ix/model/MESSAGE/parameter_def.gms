@@ -978,7 +978,7 @@ Parameters
 ;
 
 *----------------------------------------------------------------------------------------------------------------------*
-* HHI MCMAWORKFLOW                                                                              *
+* HHI MCMA AND HARD CONSTRAINT WORKFLOWS                                                                              *
 *----------------------------------------------------------------------------------------------------------------------*
 $IFTHEN %HHI_MCMA% == "1"
 SET 
@@ -999,14 +999,26 @@ POSITIVE VARIABLE
     HHI_COUNT                                   Total number of commodity-level-node that should be averaged for system average HHI
 ;
 
-Parameter
+PARAMETER
     include_commodity_hhi(node, commodity, level)       binary for whether to include commodity in HHI (1 = include)
 ;
 
-Scalar
+SCALAR
     cost_max_total
     cost_base_total
     hhi_max_total
     hhi_min_total
+;
+$ENDIF
+
+$IFTHEN %HHI_CONSTRAINT% == "1"
+
+PARAMETER
+    hhi_limit(node,commodity,level,year_all,time)
+;
+
+POSITIVE VARIABLE
+    Y_MARKET(node,commodity,level,year_all,time)
+    Y_TEC   (node,commodity,level,year_all,time,tec)
 ;
 $ENDIF

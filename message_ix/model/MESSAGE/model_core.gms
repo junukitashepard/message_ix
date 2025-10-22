@@ -2489,6 +2489,10 @@ STORAGE_INPUT(node,storage_tec,level,commodity,level_storage,commodity2,mode,yea
 $IFTHEN %HHI_MCMA% == 1
 $INCLUDE MESSAGE/hhi_mcma.gms
 $ENDIF
+
+$IFTHEN %HHI_CONSTRAINT% == 1
+$INCLUDE MESSAGE/hhi_constraint.gms
+$ENDIF
 *----------------------------------------------------------------------------------------------------------------------*
 * model statements                                                                                                     *
 *----------------------------------------------------------------------------------------------------------------------*
