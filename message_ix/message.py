@@ -435,7 +435,7 @@ par("var_cost", "nl t yv ya m h")
 #par("hhi_min_total")
 #par("hhi_max_total")
 par("include_commodity_hhi", "n c l")
-
+par("hhi_limit", "n c l ya h")
 # Variables
 var(
     "ACT_LO",
