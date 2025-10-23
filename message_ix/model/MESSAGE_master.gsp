@@ -12,6 +12,13 @@
         {
             "codecMib": 106,
             "encoding": "UTF-8",
+            "file": "MESSAGE/hhi_constraint.gms",
+            "name": "hhi_constraint.gms",
+            "type": "gms"
+        },
+        {
+            "codecMib": 106,
+            "encoding": "UTF-8",
             "file": "MESSAGE/model_core.gms",
             "name": "model_core.gms",
             "type": "gms"
@@ -28,6 +35,13 @@
             "encoding": "UTF-8",
             "file": "MESSAGE/model_solve.gms",
             "name": "model_solve.gms",
+            "type": "gms"
+        },
+        {
+            "codecMib": 106,
+            "encoding": "UTF-8",
+            "file": "MESSAGE/parameter_def.gms",
+            "name": "parameter_def.gms",
             "type": "gms"
         },
         {

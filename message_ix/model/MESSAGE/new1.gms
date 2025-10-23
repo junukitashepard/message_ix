@@ -13,7 +13,7 @@
 Equations
     DEF_Y_MARKET
     DEF_Y_TEC   
-    DEF_HHI_LIMIT
+*    DEF_HHI_LIMIT
 ;
 * Set up HHI limit workflow
 * --------------------------
@@ -68,10 +68,10 @@ Y_TEC.lo(node,commodity,level,year,time,tec) = 1e-6;
 * HHI = sum of squared technology flows for each node-level-commodity
 * HHI <= hhi_limit * (Total market)^2
 ***
-DEF_HHI_LIMIT(node,commodity,level,year,time)$(
-    year(year) AND hhi_limit(node,commodity,level,year,time) > 0
-    )..
-    SUM(tec, sqr( Y_TEC(node,commodity,level,year,time,tec) ))
-    =L=
-    hhi_limit(node,commodity,level,year,time)
-  * sqr( Y_MARKET(node,commodity,level,year,time));
+*DEF_HHI_LIMIT(node,commodity,level,year,time)$(
+*    year(year) AND hhi_limit(node,commodity,level,year,time) > 0
+*    )..
+*    SUM(tec, sqr( Y_TEC(node,commodity,level,year,time,tec) ))
+*    =L=
+*    hhi_limit(node,commodity,level,year,time)
+*  * sqr( Y_MARKET(node,commodity,level,year,time));

@@ -21,7 +21,7 @@ option RESLIM = 1e6 ;   # resource limit (in seconds; 1e6 is approximately 11 da
 * general comment: sometimes, first using one solver and then another (using the previous solution as starting point)
 * helps even if the previous run did not solve to optimality
 option LP = CPLEX ;
-option QCP = MINOS ; 
+option QCP = CPLEX ; 
 option NLP = CONOPT ;
 option MCP = PATH ;
 
