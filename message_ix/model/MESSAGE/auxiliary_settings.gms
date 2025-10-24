@@ -21,12 +21,8 @@ option RESLIM = 1e6 ;   # resource limit (in seconds; 1e6 is approximately 11 da
 * general comment: sometimes, first using one solver and then another (using the previous solution as starting point)
 * helps even if the previous run did not solve to optimality
 option LP = CPLEX ;
-* Use MINOS for non-convex QCP (HHI_MCMA mode), CPLEX for convex QCP (HHI_CONSTRAINT mode)
-$IFTHEN %HHI_MCMA% == 1
-option QCP = MINOS ;
-$ELSE
+* HHI weighted sum uses convex SOCP reformulation, CPLEX handles both WS and CONSTRAINT modes
 option QCP = CPLEX ;
-$ENDIF
 option NLP = CONOPT ;
 option MCP = PATH ;
 

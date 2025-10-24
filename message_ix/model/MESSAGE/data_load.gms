@@ -166,13 +166,13 @@ execute_load '%in%',
 
 $ENDIF
 
-$IFTHEN %HHI_MCMA% == "1"
+$IFTHEN %HHI_WS% == "1"
 execute_load '%in%',
   include_commodity_hhi
+  lambda_ws
   cost_max_total
-  cost_base_total
   hhi_max_total
-  hhi_min_total
+  hhi_scale
 ;
 $ENDIF
 

@@ -978,16 +978,11 @@ Parameters
 ;
 
 *----------------------------------------------------------------------------------------------------------------------*
-* HHI MCMA AND HARD CONSTRAINT WORKFLOWS                                                                              *
+* HHI WEIGHTED SUM AND HARD CONSTRAINT WORKFLOWS                                                                       *
 *----------------------------------------------------------------------------------------------------------------------*
-$IFTHEN %HHI_MCMA% == "1"
-SET 
-    member_index                        'membership function index' / obj1*obj2 /
-;
-
+$IFTHEN %HHI_WS% == "1"
 VARIABLE
-    MCMA                                objective function (satisfaction level)
-    MEMBER(member_index)                membership functions
+    WS_OBJ                              Weighted sum objective for cost-HHI trade-off
 ;
 
 POSITIVE VARIABLE
@@ -995,7 +990,9 @@ POSITIVE VARIABLE
     COST_TOTAL                                  Total system costs
     COM_TOTAL                                   Total commodity by level and node (the denominator of HHI before 2)
     TEC_TOTAL                                   Total technology by commodity-level-node (the numerator of HHI before 2)
-    HHI_S                                       Squared share
+    Pseudo_HHI_S                                Auxiliary variable for SOCP: TEC_TOTAL^2 <= Pseudo_HHI_S * COM_TOTAL
+    Pseudo_HHI_TOTAL                            Sum of all Pseudo_HHI_S (for SOCP formulation)
+    COM_TOTAL_SUM                               Sum of all COM_TOTAL (for normalization)
     HHI_COUNT                                   Total number of commodity-level-node that should be averaged for system average HHI
 ;
 
@@ -1004,10 +1001,10 @@ PARAMETER
 ;
 
 SCALAR
-    cost_max_total
-    cost_base_total
-    hhi_max_total
-    hhi_min_total
+    lambda_ws           'Weight on cost objective (1-lambda on HHI), range [0,1]'
+    cost_max_total      'Maximum cost for normalization'
+    hhi_max_total       'Maximum HHI for normalization'
+    hhi_scale           'Scaling factor for Pseudo_HHI_TOTAL to make units comparable to cost'
 ;
 $ENDIF
 
