@@ -2486,8 +2486,8 @@ STORAGE_INPUT(node,storage_tec,level,commodity,level_storage,commodity2,mode,yea
 *----------------------------------------------------------------------------------------------------------------------*
 * Add specified HHI mode                                                                                                     *
 *----------------------------------------------------------------------------------------------------------------------*
-$IFTHEN %HHI_MCMA% == 1
-$INCLUDE MESSAGE/hhi_mcma.gms
+$IFTHEN %HHI_WS% == 1
+$INCLUDE MESSAGE/hhi_ws.gms
 $ENDIF
 
 $IFTHEN %HHI_CONSTRAINT% == 1

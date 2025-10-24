@@ -1,0 +1,142 @@
+***
+* MESSAGE supplement to add HHI weighted sum workflow
+* ====================================================
+*
+* This code implements a weighted sum approach for multi-objective optimization
+* balancing system cost minimization and HHI (diversity) minimization.
+* User parameter lambda_ws ∈ [0,1] controls the trade-off:
+*   - lambda_ws = 1: pure cost minimization
+*   - lambda_ws = 0: pure diversity maximization (HHI minimization)
+*   - Sweep lambda_ws to trace Pareto frontier
+***
+* Equation definitions
+* --------------------
+Equations
+    EQ_COST_TOTAL                   Aggregate total costs
+    EQ_COM_TOTAL                    Total commodity flow at each node-level
+    EQ_TEC_TOTAL                    Total technology flow for each node-level-commodity
+    EQ_HHI_COUNT                    Total number of node-level-commodities to average system-wide HHI
+    EQ_HHI_S                        Rotated cone constraint for SOCP
+    EQ_PSEUDO_HHI_TOTAL             Sum of all Pseudo_HHI_S variables
+    EQ_COM_TOTAL_SUM                Sum of all COM_TOTAL variables
+    EQ_PSEUDO_HHI_BOUND             Bound Pseudo_HHI by COM_TOTAL_SUM and hhi_max_total
+    EQ_WS_OBJ                       Weighted sum objective for cost-HHI trade-off
+;
+* Set up HHI weighted sum workflow
+* ---------------------------------
+* Equation EQ_COST_TOTAL
+* """"""""""""""""""""""
+* This equation aggregates total system costs.
+***
+EQ_COST_TOTAL..
+    COST_TOTAL =E= SUM((node,year), df_period(year) * COST_NODAL(node,year));
+
+***
+* Equation EQ_COM_TOTAL
+* """""""""""""""""""""""""""
+* Total commodity flow per (node,commodity,level,year,time)
+***
+EQ_COM_TOTAL(node,commodity,level,year,time)$(
+    include_commodity_hhi(node,commodity,level)
+)..
+    COM_TOTAL(node,commodity,level,year,time) =E=
+        SUM((location,tec,vintage,mode,time2)$(
+            map_tec_lifetime(location,tec,vintage,year)
+            AND map_tec_act(location,tec,year,mode,time)
+            AND output(location,tec,vintage,year,mode,node,commodity,level,time,time2)
+        ),
+            output(location,tec,vintage,year,mode,node,commodity,level,time,time2)
+            * duration_time_rel(time2,time)
+            * ACT(location,tec,vintage,year,mode,time2)
+        );
+
+***
+* Equation EQ_TEC_TOTAL
+* """"""""""""""""""""""""""""""
+* Total commodity flow per technology per (node,commodity,level,year,time,tec)
+***
+EQ_TEC_TOTAL(node,commodity,level,year,time,tec)$(
+    include_commodity_hhi(node,commodity,level)
+)..
+    TEC_TOTAL(node,commodity,level,year,time,tec) =E=
+        SUM((location,vintage,mode,time2)$(
+            map_tec_lifetime(location,tec,vintage,year)
+            AND map_tec_act(location,tec,year,mode,time)
+            AND output(location,tec,vintage,year,mode,node,commodity,level,time,time2)
+        ),
+            output(location,tec,vintage,year,mode,node,commodity,level,time,time2)
+            * duration_time_rel(time2,time)
+            * ACT(location,tec,vintage,year,mode,time2)
+        );
+
+***
+* Equation EQ_HHI_S
+* """"""""""""""""""""""""""""""
+* Rotated second-order cone constraint in canonical form
+* 2*Pseudo_HHI_S*COM_TOTAL >= TEC_TOTAL^2 with Pseudo_HHI_S, COM_TOTAL >= 0
+***
+EQ_HHI_S(node,commodity,level,year,time,tec)$(
+    include_commodity_hhi(node,commodity,level)
+)..
+    2 * Pseudo_HHI_S(node,commodity,level,year,time,tec)
+        * COM_TOTAL(node,commodity,level,year,time) =G=
+            sqr(TEC_TOTAL(node,commodity,level,year,time,tec));
+
+***
+* Equation EQ_HHI_COUNT
+* """""""""""""""""""""""
+* Count number of periods for which HHI is calculated (for reporting)
+***
+EQ_HHI_COUNT..
+    HHI_COUNT =E=
+        SUM((node,commodity,level,year,time)$(
+            include_commodity_hhi(node,commodity,level)), 1);
+
+***
+* Equation EQ_PSEUDO_HHI_TOTAL
+* """"""""""""""""""""""""""""""
+* Sum Pseudo_HHI_S across all technologies and periods
+***
+EQ_PSEUDO_HHI_TOTAL..
+    Pseudo_HHI_TOTAL =E=
+        SUM((node,commodity,level,year,time,tec)$(
+            include_commodity_hhi(node,commodity,level)),
+            Pseudo_HHI_S(node,commodity,level,year,time,tec));
+
+***
+* Equation EQ_COM_TOTAL_SUM
+* """""""""""""""""""""""""""
+* Sum COM_TOTAL across all periods (for normalization in objective)
+***
+EQ_COM_TOTAL_SUM..
+    COM_TOTAL_SUM =E=
+        SUM((node,commodity,level,year,time)$(
+            include_commodity_hhi(node,commodity,level)),
+            COM_TOTAL(node,commodity,level,year,time));
+
+***
+* Equation EQ_PSEUDO_HHI_BOUND
+* """"""""""""""""""""""""""""""
+* Upper bound on weighted-average HHI across periods
+* Factor of 2 correction: Pseudo_HHI_TOTAL = 0.5 * sum_t(HHI[t] * COM_TOTAL[t])
+* So bound uses hhi_max_total/2 to enforce actual HHI ≤ hhi_max_total
+***
+EQ_PSEUDO_HHI_BOUND..
+    Pseudo_HHI_TOTAL =L= COM_TOTAL_SUM * (hhi_max_total / 2);
+
+***
+* Weighted sum objective for cost-HHI trade-off
+* """"""""""""""""""""""""""""""""""""""""""""""
+* Objective: minimize lambda_ws * (COST/cost_max) + (1-lambda_ws) * hhi_scale * Pseudo_HHI
+* Cost term normalized, HHI term scaled for comparability
+* User provides hhi_scale to balance units (e.g., 1/expected_demand if cost in $/GWa)
+* User sweeps lambda_ws ∈ [0,1] to trace Pareto frontier
+***
+EQ_WS_OBJ..
+    WS_OBJ =E= lambda_ws * (COST_TOTAL / cost_max_total)
+                 + (1 - lambda_ws) * hhi_scale * Pseudo_HHI_TOTAL;
+
+* Set variable bounds for SOCP
+Pseudo_HHI_S.LO(node,commodity,level,year,time,tec) = 0;
+COM_TOTAL.LO(node,commodity,level,year,time) = 0;
+TEC_TOTAL.LO(node,commodity,level,year,time,tec) = 0;

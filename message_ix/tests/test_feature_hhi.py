@@ -413,33 +413,33 @@ def test_hhi_constraint_mode(
         )
 
 
-def _add_mcma_parameters(
+def _add_ws_parameters(
     scen: Scenario,
-    cost_base_total: float = 1.0,
-    cost_max_total: float = 500000.0,
-    hhi_min_total: float = 0.0,
+    lambda_ws: float = 0.5,
+    cost_max_total: float = 1e12,
     hhi_max_total: float = 1.0,
+    hhi_scale: float = 0.002,
 ) -> None:
-    """Add MCMA-specific parameters to scenario.
+    """Add weighted sum parameters to scenario.
 
     Parameters
     ----------
     scen : Scenario
         Scenario to add parameters to (must be checked out).
-    cost_base_total : float
-        Base cost total for MCMA membership function.
+    lambda_ws : float
+        Weight on cost objective (1-lambda on HHI), range [0,1].
     cost_max_total : float
-        Maximum cost total for MCMA membership function.
-    hhi_min_total : float
-        Minimum HHI total for MCMA membership function.
+        Maximum cost for normalization.
     hhi_max_total : float
-        Maximum HHI total for MCMA membership function.
+        Maximum HHI for normalization and upper bound.
+    hhi_scale : float
+        Scaling factor for Pseudo_HHI_TOTAL to balance units with cost term.
     """
-    # Add MCMA membership bounds (scenario must be checked out by caller)
-    scen.init_scalar("cost_base_total", cost_base_total, "USD")
+    # Add weighted sum parameters (scenario must be checked out by caller)
+    scen.init_scalar("lambda_ws", lambda_ws, "-")
     scen.init_scalar("cost_max_total", cost_max_total, "USD")
-    scen.init_scalar("hhi_min_total", hhi_min_total, "-")
     scen.init_scalar("hhi_max_total", hhi_max_total, "-")
+    scen.init_scalar("hhi_scale", hhi_scale, "-")
 
     # Mark electricity commodity for HHI calculation
     include_hhi_df = pd.DataFrame(
@@ -454,23 +454,31 @@ def _add_mcma_parameters(
 
 
 @pytest.mark.parametrize(
-    "cost_max,hhi_max",
+    "lambda_ws,hhi_max",
     [
-        (1e12, 1.0),  # Allow full HHI range, focus on cost
-        (1e12, 0.8),  # Constrain HHI diversity
-        (1e12, 0.6),  # Strong HHI diversity requirement
+        (1.0, 1.0),   # Pure cost, no HHI constraint
+        (1.0, 0.8),   # Pure cost, HHI ≤ 0.8
+        (1.0, 0.6),   # Pure cost, HHI ≤ 0.6
+        (0.5, 1.0),   # Balanced, no HHI constraint
+        (0.5, 0.8),   # Balanced, HHI ≤ 0.8
+        (0.5, 0.6),   # Balanced, HHI ≤ 0.6
+        (0.0, 1.0),   # Pure diversity, no HHI constraint
+        (0.0, 0.8),   # Pure diversity, HHI ≤ 0.8
+        (0.0, 0.6),   # Pure diversity, HHI ≤ 0.6
     ],
 )
-def test_hhi_mcma_mode(
+def test_hhi_ws_mode(
     test_mp: Platform,
     request: pytest.FixtureRequest,
-    cost_max: float,
+    lambda_ws: float,
     hhi_max: float,
 ) -> None:
-    """Test HHI_MCMA mode: multi-criteria optimization of cost and diversity.
+    """Test HHI_WS mode: weighted sum optimization of cost and diversity.
 
-    MCMA (Max-Min Compromise Approach) finds Pareto-optimal solutions balancing
-    cost minimization and HHI minimization (diversity maximization).
+    Uses convex SOCP formulation with rotated second-order cone constraints.
+    User parameter lambda_ws controls trade-off:
+      - lambda_ws = 1.0: pure cost minimization
+      - lambda_ws = 0.0: pure diversity maximization (HHI minimization)
 
     Parameters
     ----------
@@ -478,30 +486,28 @@ def test_hhi_mcma_mode(
         Test platform fixture.
     request : pytest.FixtureRequest
         Pytest request fixture for scenario naming.
-    cost_max : float
-        Maximum cost for MCMA membership function.
+    lambda_ws : float
+        Weight on cost objective (1-lambda on HHI), range [0,1].
     hhi_max : float
-        Maximum HHI for MCMA membership function.
+        Maximum weighted-average HHI allowed, range [0,1].
     """
     # Create base scenario without hhi_limit parameter
     scen = _create_hhi_test_scenario(test_mp, request, hhi_limit_value=None)
 
-    # Add MCMA-specific parameters
-    with scen.transact("Add MCMA parameters"):
-        _add_mcma_parameters(
+    # Add weighted sum parameters
+    with scen.transact("Add WS parameters"):
+        _add_ws_parameters(
             scen,
-            cost_base_total=1.0,
-            cost_max_total=cost_max,
-            hhi_min_total=0.0,
+            lambda_ws=lambda_ws,
+            cost_max_total=1e12,
             hhi_max_total=hhi_max,
         )
 
-    # Solve with HHI_MCMA mode (scenario will auto-checkout for solution import)
-    # Note: MINOS returns MODEL STATUS=2 (Locally Optimal), so disable check_solution
+    # Solve with HHI_WS mode using convex SOCP reformulation
     print(
-        f"\n=== Testing HHI_MCMA mode with cost_max={cost_max}, hhi_max={hhi_max} ==="
+        f"\n=== Testing HHI_WS mode with lambda_ws={lambda_ws}, hhi_max={hhi_max} ==="
     )
-    scen.solve(gams_args=["--HHI_MCMA=1"], check_solution=False, quiet=False)
+    scen.solve(gams_args=["--HHI_WS=1"], quiet=False)
 
     # Extract activity results
     activity = scen.var("ACT")
@@ -515,4 +521,4 @@ def test_hhi_mcma_mode(
     assert portfolio_hhi >= 0 and portfolio_hhi <= 1, "HHI should be in [0,1]"
     assert len(electricity_activity) > 0, "Should have non-zero electricity activity"
 
-    print("✓ HHI_MCMA mode solved successfully with MINOS")
+    print(f"✓ HHI_WS mode solved successfully (λ={lambda_ws}, HHI_max={hhi_max})")

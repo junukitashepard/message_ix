@@ -24,11 +24,11 @@ if (%foresight% = 0,
 
 * write a status update to the log file, solve the model
     put_utility 'log' /'+++ Solve the perfect-foresight version of MESSAGEix +++ ' ;
-$IFTHEN %HHI_MCMA% == 0
+$IFTHEN %HHI_WS% == 0
 $IF %HHI_CONSTRAINT% == 0     Solve MESSAGE_MODEL using LP minimizing OBJ ;
 $ENDIF
 
-$IF %HHI_MCMA% == 1                             Solve MESSAGE_MODEL using QCP maximizing MCMA ;
+$IF %HHI_WS% == 1                             Solve MESSAGE_MODEL using QCP minimizing WS_OBJ ;
 $IF %HHI_CONSTRAINT% == 1                       Solve MESSAGE_MODEL using QCP minimizing OBJ ;
 
 * write model status summary
