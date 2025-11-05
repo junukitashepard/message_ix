@@ -1,6 +1,6 @@
-""" Tests for Herfindahl-Hirschman Index (HHI) MCDA feature
+""" Tests for Herfindahl-Hirschman Index (HHI) HHI constraint feature
 
-Uses the Westeros tutorial scenario to test HHI MCDA feature.
+Uses the Westeros tutorial scenario to test HHI constraint feature.
 """
 import numpy as np
 import pandas as pd
@@ -12,7 +12,7 @@ from message_ix.testing import make_westeros
 
 # Pull and clone scenario for testing
 def _hhi_limit_westeros_test(
-    hhi_limit: float = 0.8) -> Scenario:
+    hhi_limit: float = 0.5) -> Scenario:
 
     """Pull and clone the Westeros scenario and add hhi limit
     
@@ -45,11 +45,10 @@ def _hhi_limit_westeros_test(
                 "year_act": y,
                 "time": "year",
                 "value": hhi_limit, }, index=[0])])
-        hhi_limit_df
 
         scen.add_par("hhi_limit", hhi_limit_df)
 
-    scen.solve(gams_args=["--HHI_CONSTRAINT=1"], quiet=True)
+    scen.solve(gams_args=["--HHI_CONSTRAINT=1"], quiet=False)
     #scen.solve()
 
     # Extract activity
