@@ -8,14 +8,16 @@
 *   - lambda_ws = 1: pure cost minimization
 *   - lambda_ws = 0: pure diversity maximization (HHI minimization)
 *   - Sweep lambda_ws to trace Pareto frontier
+*
+* HHI is calculated based on LOCATION of output (not node)
 ***
 * Equation definitions
 * --------------------
 Equations
     EQ_COST_TOTAL                   Aggregate total costs
-    EQ_COM_TOTAL                    Total commodity flow at each node-level
-    EQ_TEC_TOTAL                    Total technology flow for each node-level-commodity
-    EQ_HHI_COUNT                    Total number of node-level-commodities to average system-wide HHI
+    EQ_COM_TOTAL                    Total commodity flow at each location-level
+    EQ_TEC_TOTAL                    Total technology flow for each location-level-commodity
+    EQ_HHI_COUNT                    Total number of location-level-commodities to average system-wide HHI
     EQ_HHI_S                        Rotated cone constraint for SOCP
     EQ_PSEUDO_HHI_TOTAL             Sum of all Pseudo_HHI_S variables
     EQ_COM_TOTAL_SUM                Sum of all COM_TOTAL variables
@@ -38,13 +40,14 @@ EQ_COST_TOTAL..
 ***
 * Equation EQ_COM_TOTAL
 * """""""""""""""""""""""""""
-* Total commodity flow per (node,commodity,level,year,time)
+* Total commodity flow per (location,commodity,level,year,time)
+* Based on location where output is produced
 ***
-EQ_COM_TOTAL(node,commodity,level,year,time)$(
-    include_commodity_hhi(node,commodity,level)
+EQ_COM_TOTAL(location,commodity,level,year,time)$(
+    include_commodity_hhi(location,commodity,level)
 )..
-    COM_TOTAL(node,commodity,level,year,time) =E=
-        SUM((location,tec,vintage,mode,time2)$(
+    COM_TOTAL(location,commodity,level,year,time) =E=
+        SUM((node,tec,vintage,mode,time2)$(
             map_tec_lifetime(location,tec,vintage,year)
             AND map_tec_act(location,tec,year,mode,time)
             AND output(location,tec,vintage,year,mode,node,commodity,level,time,time2)
@@ -57,13 +60,14 @@ EQ_COM_TOTAL(node,commodity,level,year,time)$(
 ***
 * Equation EQ_TEC_TOTAL
 * """"""""""""""""""""""""""""""
-* Total commodity flow per technology per (node,commodity,level,year,time,tec)
+* Total commodity flow per technology per (location,commodity,level,year,time,tec)
+* Based on location where output is produced
 ***
-EQ_TEC_TOTAL(node,commodity,level,year,time,tec)$(
-    include_commodity_hhi(node,commodity,level)
+EQ_TEC_TOTAL(location,commodity,level,year,time,tec)$(
+    include_commodity_hhi(location,commodity,level)
 )..
-    TEC_TOTAL(node,commodity,level,year,time,tec) =E=
-        SUM((location,vintage,mode,time2)$(
+    TEC_TOTAL(location,commodity,level,year,time,tec) =E=
+        SUM((node,vintage,mode,time2)$(
             map_tec_lifetime(location,tec,vintage,year)
             AND map_tec_act(location,tec,year,mode,time)
             AND output(location,tec,vintage,year,mode,node,commodity,level,time,time2)
@@ -81,17 +85,17 @@ EQ_TEC_TOTAL(node,commodity,level,year,time,tec)$(
 * Only active when COM_TOTAL could be non-zero (i.e., when technologies exist)
 * This allows COM_TOTAL to be zero without numerical issues in the SOCP solver
 ***
-EQ_HHI_S(node,commodity,level,year,time,tec)$(
-    include_commodity_hhi(node,commodity,level)
-    AND SUM((location,vintage,mode,time2)$(
+EQ_HHI_S(location,commodity,level,year,time,tec)$(
+    include_commodity_hhi(location,commodity,level)
+    AND SUM((node,vintage,mode,time2)$(
         map_tec_lifetime(location,tec,vintage,year)
         AND map_tec_act(location,tec,year,mode,time)
         AND output(location,tec,vintage,year,mode,node,commodity,level,time,time2)
     ), 1)
 )..
-    2 * Pseudo_HHI_S(node,commodity,level,year,time,tec)
-        * COM_TOTAL(node,commodity,level,year,time) =G=
-            sqr(TEC_TOTAL(node,commodity,level,year,time,tec));
+    2 * Pseudo_HHI_S(location,commodity,level,year,time,tec)
+        * COM_TOTAL(location,commodity,level,year,time) =G=
+            sqr(TEC_TOTAL(location,commodity,level,year,time,tec));
 
 ***
 * Equation EQ_HHI_COUNT
@@ -100,8 +104,8 @@ EQ_HHI_S(node,commodity,level,year,time,tec)$(
 ***
 EQ_HHI_COUNT..
     HHI_COUNT =E=
-        SUM((node,commodity,level,year,time)$(
-            include_commodity_hhi(node,commodity,level)), 1);
+        SUM((location,commodity,level,year,time)$(
+            include_commodity_hhi(location,commodity,level)), 1);
 
 ***
 * Equation EQ_PSEUDO_HHI_TOTAL
@@ -110,9 +114,9 @@ EQ_HHI_COUNT..
 ***
 EQ_PSEUDO_HHI_TOTAL..
     Pseudo_HHI_TOTAL =E=
-        SUM((node,commodity,level,year,time,tec)$(
-            include_commodity_hhi(node,commodity,level)),
-            Pseudo_HHI_S(node,commodity,level,year,time,tec));
+        SUM((location,commodity,level,year,time,tec)$(
+            include_commodity_hhi(location,commodity,level)),
+            Pseudo_HHI_S(location,commodity,level,year,time,tec));
 
 ***
 * Equation EQ_COM_TOTAL_SUM
@@ -121,9 +125,9 @@ EQ_PSEUDO_HHI_TOTAL..
 ***
 EQ_COM_TOTAL_SUM..
     COM_TOTAL_SUM =E=
-        SUM((node,commodity,level,year,time)$(
-            include_commodity_hhi(node,commodity,level)),
-            COM_TOTAL(node,commodity,level,year,time));
+        SUM((location,commodity,level,year,time)$(
+            include_commodity_hhi(location,commodity,level)),
+            COM_TOTAL(location,commodity,level,year,time));
 
 ***
 * Equation EQ_PSEUDO_HHI_BOUND
@@ -149,6 +153,6 @@ EQ_WS_OBJ..
 
 * Set variable bounds for SOCP
 * Lower bounds allow variables to be zero
-Pseudo_HHI_S.LO(node,commodity,level,year,time,tec) = 0;
-COM_TOTAL.LO(node,commodity,level,year,time) = 0;
-TEC_TOTAL.LO(node,commodity,level,year,time,tec) = 0;
+Pseudo_HHI_S.LO(location,commodity,level,year,time,tec) = 0;
+COM_TOTAL.LO(location,commodity,level,year,time) = 0;
+TEC_TOTAL.LO(location,commodity,level,year,time,tec) = 0;
