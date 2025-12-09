@@ -1,0 +1,528 @@
+
+--- Job MESSAGE_master.gms Start 12/09/25 09:52:34 49.5.0 b32bf9f5 WEX-WEI x86 64bit/MS Windows
+--- Applying:
+    C:\GAMS\49\gmsprmNT.txt
+--- GAMS Parameters defined
+    Input C:\GitHub\message_ix\message_ix\model\MESSAGE_master.gms
+    PageSize 0
+    ScrDir C:\GitHub\message_ix\message_ix\model\225d\
+    SysDir C:\GAMS\49\
+    LogOption 3
+    ErrMsg 1
+    ErrorLog 99
+    IDE 1
+    LstTitleLeftAligned 1
+Licensee: Small MUD - 5 User License                     S240905|0002AP-GEN
+          IIASA, Information and Communication Technologies Dep.      DC216
+          C:\GAMS\49\gamslice.txt
+          License Admin: Melanie Weed-Wenighofer, wenighof@iiasa.ac.at     
+          The maintenance period of the license expired on Nov 29, 2025
+          Please contact GAMS or your distributor for further information
+System information: 16 physical cores and 32 Gb memory detected
+GAMS 49.5.0   Copyright (C) 1987-2025 GAMS Development. All rights reserved
+--- Starting compilation
+--- MESSAGE_master.gms(3) 2 Mb
+--- . copyright.gms(29) 2 Mb
+--- MESSAGE_master.gms(84) 2 Mb
+--- . MESSAGE_run.gms(3) 2 Mb
+--- .. copyright.gms(29) 2 Mb
+--- . MESSAGE_run.gms(30) 2 Mb
+--- .. model_setup.gms(75) 2 Mb
+--- ... auxiliary_settings.gms(39) 2 Mb
+--- .. model_setup.gms(78) 2 Mb
+--- ... version.gms(23) 2 Mb
+--- .. model_setup.gms(79) 2 Mb
+--- ... version_check.gms(7) 2 Mb
+--- GDXin=C:\GitHub\message_ix\message_ix\model\data\MsgData_alps_hhi_SSP2_hhi_PE_l100p.gdx
+--- GDX File ($gdxIn) C:\GitHub\message_ix\message_ix\model\data\MsgData_alps_hhi_SSP2_hhi_PE_l100p.gdx
+--- ... version_check.gms(24) 3 Mb
+--- .. model_setup.gms(82) 3 Mb
+--- ... sets_maps_def.gms(521) 3 Mb
+--- .. model_setup.gms(83) 3 Mb
+--- ... parameter_def.gms(982) 3 Mb
+--- Found nested $ifThen within $If statement (line 110).
+--- Use unique tag to ensure correct behavior.
+--- ... parameter_def.gms(1010) 3 Mb
+--- Found nested $ifThen within $If statement (line 110).
+--- Use unique tag to ensure correct behavior.
+--- ... parameter_def.gms(1040) 3 Mb
+--- Found nested $ifThen within $If statement (line 110).
+--- Use unique tag to ensure correct behavior.
+--- .. model_setup.gms(86) 3 Mb
+--- ... data_load.gms(9) 3 Mb
+--- GDXin=C:\GitHub\message_ix\message_ix\model\data\MsgData_alps_hhi_SSP2_hhi_PE_l100p.gdx
+--- GDX File ($gdxIn) C:\GitHub\message_ix\message_ix\model\data\MsgData_alps_hhi_SSP2_hhi_PE_l100p.gdx
+--- ... data_load.gms(24) 44 Mb
+--- Found nested $ifThen within $If statement (line 110).
+--- Use unique tag to ensure correct behavior.
+--- ... data_load.gms(156) 44 Mb
+--- Found nested $ifThen within $If statement (line 110).
+--- Use unique tag to ensure correct behavior.
+--- ... data_load.gms(169) 44 Mb
+--- Found nested $ifThen within $If statement (line 110).
+--- Use unique tag to ensure correct behavior.
+--- ... data_load.gms(179) 44 Mb
+--- Found nested $ifThen within $If statement (line 110).
+--- Use unique tag to ensure correct behavior.
+--- ... data_load.gms(189) 44 Mb
+--- Found nested $ifThen within $If statement (line 110).
+--- Use unique tag to ensure correct behavior.
+--- ... data_load.gms(221) 44 Mb
+--- Found nested $ifThen within $If statement (line 110).
+--- Use unique tag to ensure correct behavior.
+--- ... data_load.gms(247) 44 Mb
+--- .... period_parameter_assignment.gms(118) 44 Mb
+--- ... data_load.gms(421) 44 Mb
+--- .. model_setup.gms(89) 44 Mb
+--- ... scaling_investment_costs.gms(209) 44 Mb
+--- .. model_setup.gms(95) 44 Mb
+--- ... model_core.gms(652) 44 Mb
+--- Found nested $ifThen within $If statement (line 110).
+--- Use unique tag to ensure correct behavior.
+--- ... model_core.gms(2489) 44 Mb
+--- Found nested $ifThen within $If statement (line 110).
+--- Use unique tag to ensure correct behavior.
+--- ... model_core.gms(2493) 44 Mb
+--- Found nested $ifThen within $If statement (line 110).
+--- Use unique tag to ensure correct behavior.
+--- ... model_core.gms(2494) 44 Mb
+--- .... hhi_penalty.gms(144) 44 Mb
+--- ... model_core.gms(2497) 44 Mb
+--- Found nested $ifThen within $If statement (line 110).
+--- Use unique tag to ensure correct behavior.
+--- ... model_core.gms(2507) 44 Mb
+--- .. model_setup.gms(95) 44 Mb
+--- . MESSAGE_run.gms(36) 44 Mb
+--- .. model_solve.gms(27) 44 Mb
+--- Found nested $ifThen within $If statement (line 110).
+--- Use unique tag to ensure correct behavior.
+--- .. model_solve.gms(115) 44 Mb
+--- ... aux_computation_time.gms(14) 44 Mb
+--- .. model_solve.gms(182) 44 Mb
+--- . MESSAGE_run.gms(43) 44 Mb
+--- .. reporting.gms(26) 44 Mb
+--- . MESSAGE_run.gms(52) 44 Mb
+--- MESSAGE_master.gms(90) 44 Mb
+--- Starting execution: elapsed 0:00:00.076
+--- MESSAGE_master.gms(1882) 45 Mb
+    +++ Importing data from 'data/MsgData_alps_hhi_SSP2_hhi_PE_l100p.gdx'... +++
+--- MESSAGE_master.gms(1906) 45 Mb
+--- GDXin=C:\GitHub\message_ix\message_ix\model\data\MsgData_alps_hhi_SSP2_hhi_PE_l100p.gdx
+--- MESSAGE_master.gms(1906) 1037 Mb
+--- GDX File (execute_load) C:\GitHub\message_ix\message_ix\model\data\MsgData_alps_hhi_SSP2_hhi_PE_l100p.gdx
+--- MESSAGE_master.gms(2037) 1037 Mb
+--- GDXin=C:\GitHub\message_ix\message_ix\model\data\MsgData_alps_hhi_SSP2_hhi_PE_l100p.gdx
+--- GDX File (execute_load) C:\GitHub\message_ix\message_ix\model\data\MsgData_alps_hhi_SSP2_hhi_PE_l100p.gdx
+--- MESSAGE_master.gms(2792) 1174 Mb  130 secs
+--- MESSAGE_master.gms(5209) 1181 Mb
+    +++ Solve the perfect-foresight version of MESSAGEix +++
+--- Generating QCP model MESSAGE_MODEL
+--- MESSAGE_master.gms(3223) 1636 Mb  3 secs
+--- MESSAGE_master.gms(4466) 1751 Mb  4 secs
+--- MESSAGE_master.gms(4532) 1762 Mb  4 secs
+--- MESSAGE_master.gms(4571) 2131 Mb  4 secs
+--- MESSAGE_master.gms(5233) 2187 Mb
+---   1,693,522 rows  1,753,601 columns  8,395,328 non-zeroes
+---   0 nl-code  0 nl-non-zeroes
+--- Range statistics (absolute non-zero finite values)
+--- RHS       [min, max] : [ 5.551E-17, 2.350E+06] - Zero values observed as well
+--- Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+--- Matrix    [min, max] : [ 1.068E-20, 5.341E+06] - Zero values observed as well
+--- MESSAGE_master.gms(5233) 2185 Mb
+--- Executing CPLEX (Solvelink=2): elapsed 0:02:43.322
+
+IBM ILOG CPLEX   49.5.0 b32bf9f5 Apr 29, 2025          WEI x86 64bit/MS Window
+
+--- GAMS/CPLEX Link licensed for continuous and discrete problems.
+
+Reading parameter(s) from "C:\GitHub\message_ix\message_ix\model\cplex.opt"
+>>  advind = 0
+>>  lpmethod = 4
+>>  threads = 8
+>>  epopt = 1e-06
+Finished reading from "C:\GitHub\message_ix\message_ix\model\cplex.opt"
+
+--- GMO Q Extraction (): 0.00s
+--- GMO setup time: 0.00s
+--- Space for names approximately 219.81 Mb
+--- Use option 'names no' to turn use of names off
+--- GMO memory 793.76 Mb (peak 800.22 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.2.0 link memory 52.83 Mb (peak 410.24 Mb)
+--- Starting Cplex
+
+Version identifier: 22.1.2.0 | 2024-11-25 | 0edbb82fd
+CPXPARAM_Advance                                 0
+CPXPARAM_LPMethod                                4
+CPXPARAM_Threads                                 8
+CPXPARAM_Parallel                                1
+CPXPARAM_MIP_Display                             4
+CPXPARAM_MIP_Pool_Capacity                       0
+CPXPARAM_Barrier_Limits_Iteration                100000000
+CPXPARAM_TimeLimit                               1000000
+CPXPARAM_MIP_Tolerances_AbsMIPGap                0
+CPXPARAM_MIP_Tolerances_MIPGap                   0
+Tried aggregator 1 time.
+LP Presolve eliminated 1261227 rows and 1294000 columns.
+Aggregator did 64940 substitutions.
+Reduced LP has 367162 rows, 396566 columns, and 1902477 nonzeros.
+Presolve time = 2.45 sec. (7803.65 ticks)
+Parallel mode: using up to 8 threads for barrier.
+Number of nonzeros in lower triangle of A*A' = 2348460
+Using Nested Dissection ordering
+Total time for automatic ordering = 3.02 sec. (3685.89 ticks)
+Summary statistics for Cholesky factor:
+  Threads                   = 8
+  Rows in Factor            = 367162
+  Integer space required    = 1910524
+  Total non-zeros in factor = 13929846
+  Total FP ops to factor    = 3946524732
+ Itn      Primal Obj        Dual Obj  Prim Inf Upper Inf  Dual Inf Inf Ratio
+   0   3.3061939e+01  -1.3346548e+09  2.54e+07  1.88e+05  6.87e+08  1.00e+00
+   1   3.2169502e+01  -1.2487007e+09  2.44e+07  1.80e+05  6.43e+08  3.16e-03
+   2   3.0340022e+01  -1.1657391e+09  2.23e+07  1.65e+05  6.01e+08  1.59e-03
+   3   2.8631874e+01  -1.0276031e+09  2.04e+07  1.50e+05  5.30e+08  9.77e-04
+   4   2.7248396e+01  -8.9060427e+08  1.87e+07  1.38e+05  4.60e+08  7.04e-04
+   5   2.5951888e+01  -7.8828929e+08  1.72e+07  1.27e+05  4.08e+08  5.50e-04
+   6   2.4644102e+01  -6.6122045e+08  1.55e+07  1.15e+05  3.42e+08  4.47e-04
+   7   2.4335999e+01  -6.0296004e+08  1.49e+07  1.10e+05  3.12e+08  3.32e-04
+   8   2.2931651e+01  -4.8937752e+08  1.32e+07  9.73e+04  2.53e+08  3.34e-04
+   9   2.2470528e+01  -4.4219096e+08  1.22e+07  9.03e+04  2.29e+08  2.87e-04
+  10   2.2020809e+01  -3.9428883e+08  1.13e+07  8.38e+04  2.04e+08  2.59e-04
+  11   2.1399260e+01  -3.3077965e+08  1.02e+07  7.52e+04  1.71e+08  2.39e-04
+  12   2.0683419e+01  -2.2570435e+08  8.92e+06  6.58e+04  1.17e+08  2.32e-04
+  13   1.9683878e+01  -1.6320532e+08  7.36e+06  5.44e+04  8.46e+07  2.55e-04
+  14   1.8685298e+01  -1.1065006e+08  5.95e+06  4.40e+04  5.73e+07  3.07e-04
+  15   1.7519784e+01  -8.3543296e+07  4.53e+06  3.34e+04  4.33e+07  3.71e-04
+  16   1.6410287e+01  -5.6762105e+07  3.34e+06  2.47e+04  2.94e+07  4.89e-04
+  17   1.4831788e+01  -3.7316717e+07  1.86e+06  1.38e+04  1.93e+07  7.00e-04
+  18   1.3900370e+01  -2.7299923e+07  1.12e+06  8.29e+03  1.41e+07  9.40e-04
+  19   1.3426070e+01  -1.5171300e+07  7.81e+05  5.77e+03  7.86e+06  1.56e-03
+  20   1.2716468e+01  -1.4521818e+07  3.15e+05  2.33e+03  7.53e+06  1.77e-03
+  21   1.2624926e+01  -1.0299734e+07  1.59e+05  1.17e+03  5.34e+06  2.49e-03
+  22   1.2216553e+01  -2.9840394e+06  5.40e+04  3.99e+02  1.55e+06  8.71e-03
+  23   1.2161320e+01  -1.1340084e+06  1.39e+04  1.02e+02  5.88e+05  2.32e-02
+  24   1.2156562e+01  -2.1191826e+05  2.45e+03  1.81e+01  1.10e+05  1.27e-01
+  25   1.2361531e+01  -7.6803583e+04  4.96e+02  3.67e+00  3.98e+04  3.58e-01
+  26   1.2378511e+01  -1.1520270e+04  7.61e+01  5.62e-01  5.98e+03  2.42e+00
+  27   1.2377475e+01  -1.7473727e+03  1.46e+01  1.08e-01  9.12e+02  1.60e+01
+  28   1.2362337e+01  -2.5752258e+02  1.95e+00  1.44e-02  1.40e+02  1.05e+02
+  29   1.2208366e+01  -1.7847368e+01  1.74e-01  1.28e-03  1.56e+01  9.68e+02
+  30   1.1331358e+01   2.2399555e+00  6.56e-02  4.85e-04  4.65e+00  3.37e+03
+  31   1.0389594e+01   4.8418604e+00  4.54e-02  3.35e-04  2.65e+00  5.99e+03
+  32   1.0393764e+01   5.0080689e+00  4.54e-02  3.35e-04  2.61e+00  6.09e+03
+  33   1.0323011e+01   5.0100122e+00  4.47e-02  3.30e-04  2.60e+00  6.11e+03
+  34   1.0323109e+01   5.0247830e+00  4.47e-02  3.30e-04  2.59e+00  6.13e+03
+  35   1.0254034e+01   4.9833447e+00  4.42e-02  3.26e-04  2.53e+00  6.28e+03
+  36   1.0122095e+01   4.9832584e+00  4.31e-02  3.18e-04  2.28e+00  6.92e+03
+  37   1.0027668e+01   4.8420440e+00  4.25e-02  3.14e-04  2.07e+00  7.59e+03
+  38   9.6588421e+00   4.3777615e+00  4.07e-02  3.01e-04  1.81e+00  8.61e+03
+  39   9.5291528e+00   3.3807162e+00  4.05e-02  2.99e-04  1.68e+00  9.25e+03
+  40   9.2596852e+00   2.3082010e+00  3.98e-02  2.94e-04  1.51e+00  1.02e+04
+  41   9.1053543e+00  -5.1222560e-01  3.97e-02  2.93e-04  1.42e+00  1.08e+04
+  42   8.9137170e+00  -1.3760235e+00  3.96e-02  2.92e-04  1.40e+00  1.09e+04
+  43   8.9121502e+00  -1.3229827e+00  3.94e-02  2.91e-04  1.39e+00  1.10e+04
+  44   8.8007427e+00  -1.3779104e+00  3.90e-02  2.88e-04  1.25e+00  1.21e+04
+  45   8.7514870e+00  -1.0913601e+00  3.83e-02  2.83e-04  1.20e+00  1.26e+04
+  46   8.5970845e+00  -3.0966980e-01  3.73e-02  2.75e-04  9.67e-01  1.53e+04
+  47   8.5287515e+00  -6.7159237e-01  3.72e-02  2.74e-04  9.42e-01  1.56e+04
+  48   8.4223220e+00  -6.0898963e-01  3.66e-02  2.70e-04  9.18e-01  1.60e+04
+  49   8.2873281e+00  -6.6826493e-01  3.61e-02  2.66e-04  8.18e-01  1.77e+04
+  50   8.2794723e+00  -6.8852853e-01  3.61e-02  2.66e-04  8.18e-01  1.77e+04
+  51   8.0355454e+00  -1.0171675e+00  3.55e-02  2.62e-04  7.73e-01  1.85e+04
+  52   8.0564680e+00  -9.8607963e-01  3.55e-02  2.62e-04  7.72e-01  1.85e+04
+  53   8.0302502e+00  -1.0206759e+00  3.55e-02  2.62e-04  7.73e-01  1.85e+04
+  54   7.9988645e+00  -1.1505669e+00  3.54e-02  2.61e-04  7.57e-01  1.88e+04
+  55   7.8498291e+00  -9.0702283e-01  3.47e-02  2.56e-04  6.50e-01  2.15e+04
+  56   7.7525705e+00  -1.0365027e+00  3.44e-02  2.54e-04  6.10e-01  2.27e+04
+  57   7.7059690e+00  -1.1603773e+00  3.43e-02  2.53e-04  6.05e-01  2.28e+04
+  58   7.4654538e+00  -1.0219184e+00  3.32e-02  2.45e-04  5.52e-01  2.47e+04
+  59   7.4552483e+00  -6.5881241e-01  3.30e-02  2.43e-04  5.23e-01  2.62e+04
+  60   7.3770945e+00  -7.7083883e-01  3.28e-02  2.42e-04  5.18e-01  2.63e+04
+  61   7.3291385e+00  -5.7409110e-01  3.27e-02  2.40e-04  4.82e-01  2.80e+04
+  62   7.3000090e+00  -5.3404460e-01  3.26e-02  2.39e-04  4.68e-01  2.87e+04
+  63   7.1365601e+00  -2.3289031e-01  3.15e-02  2.32e-04  4.15e-01  3.20e+04
+  64   7.0703540e+00  -1.5176922e-01  3.12e-02  2.29e-04  3.97e-01  3.33e+04
+  65   6.9292388e+00  -1.4150708e-01  3.04e-02  2.23e-04  3.94e-01  3.35e+04
+  66   6.8045336e+00   1.1230079e-02  2.97e-02  2.18e-04  3.54e-01  3.69e+04
+  67   6.7786386e+00  -5.2746243e-02  2.96e-02  2.18e-04  3.48e-01  3.74e+04
+  68   6.7643731e+00  -1.8771318e-01  2.96e-02  2.17e-04  3.45e-01  3.76e+04
+  69   6.5976227e+00  -4.4852562e-02  2.87e-02  2.11e-04  3.10e-01  4.13e+04
+  70   6.3823058e+00  -8.8224821e-03  2.78e-02  2.04e-04  2.87e-01  4.40e+04
+  71   6.3872338e+00   8.1675905e-03  2.77e-02  2.03e-04  2.87e-01  4.41e+04
+  72   6.3489643e+00  -2.7312145e-02  2.76e-02  2.02e-04  2.81e-01  4.49e+04
+  73   6.3278554e+00  -3.6450350e-02  2.75e-02  2.02e-04  2.78e-01  4.52e+04
+  74   6.3281585e+00  -3.5615583e-02  2.75e-02  2.02e-04  2.78e-01  4.52e+04
+  75   6.3118748e+00  -9.5864034e-02  2.75e-02  2.01e-04  2.73e-01  4.60e+04
+  76   6.2760199e+00  -1.1890921e-01  2.74e-02  2.01e-04  2.72e-01  4.60e+04
+  77   6.2765291e+00  -1.1327878e-01  2.74e-02  2.01e-04  2.72e-01  4.60e+04
+  78   6.2436110e+00   3.0542695e-01  2.71e-02  1.99e-04  2.35e-01  5.28e+04
+  79   6.2366098e+00   2.6902926e-01  2.71e-02  1.99e-04  2.35e-01  5.27e+04
+  80   6.1985286e+00   2.5781369e-01  2.70e-02  1.97e-04  2.29e-01  5.39e+04
+  81   6.1273702e+00   2.8621739e-01  2.66e-02  1.95e-04  2.14e-01  5.71e+04
+  82   6.0771500e+00   2.6048699e-01  2.64e-02  1.94e-04  2.10e-01  5.79e+04
+  83   5.9801542e+00   2.7518309e-01  2.60e-02  1.90e-04  1.99e-01  6.06e+04
+  84   5.9463629e+00   2.4588390e-01  2.59e-02  1.89e-04  1.94e-01  6.17e+04
+  85   5.7911905e+00   2.7072590e-01  2.53e-02  1.84e-04  1.86e-01  6.40e+04
+  86   5.5875321e+00   3.4956599e-01  2.42e-02  1.75e-04  1.70e-01  6.96e+04
+  87   5.4968856e+00   3.6470731e-01  2.38e-02  1.72e-04  1.58e-01  7.39e+04
+  88   5.4873339e+00   3.6893713e-01  2.37e-02  1.72e-04  1.58e-01  7.41e+04
+  89   5.4677882e+00   3.5807290e-01  2.36e-02  1.71e-04  1.52e-01  7.63e+04
+  90   5.4473166e+00   3.5382706e-01  2.36e-02  1.71e-04  1.52e-01  7.64e+04
+  91   5.4482492e+00   3.6568579e-01  2.35e-02  1.70e-04  1.52e-01  7.67e+04
+  92   5.3179566e+00   3.8047109e-01  2.29e-02  1.66e-04  1.40e-01  8.19e+04
+  93   5.3150607e+00   3.7761655e-01  2.29e-02  1.66e-04  1.40e-01  8.18e+04
+  94   5.3135154e+00   3.8207542e-01  2.29e-02  1.65e-04  1.40e-01  8.20e+04
+  95   4.8668470e+00   4.1305113e-01  2.07e-02  1.49e-04  1.31e-01  8.75e+04
+  96   4.8660116e+00   4.1407443e-01  2.07e-02  1.49e-04  1.31e-01  8.77e+04
+  97   4.8658932e+00   4.0401818e-01  2.07e-02  1.49e-04  1.29e-01  8.88e+04
+  98   4.8437351e+00   3.9869104e-01  2.06e-02  1.48e-04  1.26e-01  9.02e+04
+  99   4.8437948e+00   3.9901054e-01  2.06e-02  1.48e-04  1.26e-01  9.02e+04
+ 100   4.8108402e+00   3.7970258e-01  2.05e-02  1.48e-04  1.26e-01  9.05e+04
+ 101   4.6529787e+00   4.2485318e-01  1.97e-02  1.42e-04  1.13e-01  9.87e+04
+ 102   4.6524474e+00   4.2297246e-01  1.97e-02  1.42e-04  1.13e-01  9.86e+04
+ 103   4.6424987e+00   4.0155318e-01  1.96e-02  1.41e-04  1.11e-01  1.00e+05
+ 104   4.6306086e+00   3.9972946e-01  1.96e-02  1.41e-04  1.11e-01  1.01e+05
+ 105   4.6236334e+00   4.1161066e-01  1.95e-02  1.41e-04  1.10e-01  1.01e+05
+ 106   4.1072578e+00   5.2841531e-01  1.69e-02  1.21e-04  8.15e-02  1.34e+05
+ 107   4.0622671e+00   5.3734085e-01  1.66e-02  1.20e-04  7.80e-02  1.39e+05
+ 108   3.9667853e+00   5.5532574e-01  1.62e-02  1.16e-04  7.17e-02  1.48e+05
+ 109   3.8321500e+00   5.5830494e-01  1.55e-02  1.12e-04  6.58e-02  1.60e+05
+ 110   3.7194702e+00   5.6126421e-01  1.50e-02  1.08e-04  6.51e-02  1.62e+05
+ 111   3.6642760e+00   5.6840284e-01  1.47e-02  1.06e-04  6.13e-02  1.70e+05
+ 112   3.6496787e+00   5.6882066e-01  1.46e-02  1.05e-04  6.12e-02  1.70e+05
+ 113   3.6235204e+00   5.7781357e-01  1.45e-02  1.04e-04  5.74e-02  1.80e+05
+ 114   3.5973542e+00   5.8508040e-01  1.44e-02  1.03e-04  5.55e-02  1.85e+05
+ 115   3.5292700e+00   5.9157515e-01  1.40e-02  1.01e-04  5.40e-02  1.89e+05
+ 116   3.3468958e+00   6.4728310e-01  1.31e-02  9.39e-05  4.14e-02  2.38e+05
+ 117   3.3466309e+00   6.2089320e-01  1.31e-02  9.39e-05  4.18e-02  2.36e+05
+ 118   3.3318365e+00   6.2205154e-01  1.30e-02  9.34e-05  4.11e-02  2.39e+05
+ 119   3.2142062e+00   6.3856662e-01  1.24e-02  8.91e-05  3.69e-02  2.61e+05
+ 120   3.1015244e+00   6.5596379e-01  1.18e-02  8.49e-05  3.24e-02  2.90e+05
+ 121   2.6039531e+00   6.8983041e-01  9.29e-03  6.67e-05  2.35e-02  3.72e+05
+ 122   2.4171933e+00   6.9654103e-01  8.34e-03  5.99e-05  2.23e-02  3.97e+05
+ 123   2.2161946e+00   7.2105736e-01  7.30e-03  5.24e-05  1.91e-02  5.05e+05
+ 124   1.9172618e+00   7.2714738e-01  5.81e-03  4.17e-05  1.88e-02  6.00e+05
+ 125   1.8294170e+00   7.3881251e-01  5.31e-03  3.81e-05  1.75e-02  6.39e+05
+ 126   1.5851687e+00   7.1771858e-01  4.23e-03  3.03e-05  2.13e-02  8.57e+05
+ 127   1.5573418e+00   7.2777789e-01  4.05e-03  2.91e-05  2.01e-02  9.00e+05
+ 128   1.5192468e+00   7.3291816e-01  3.82e-03  2.75e-05  1.96e-02  9.29e+05
+ 129   1.4488326e+00   7.4532615e-01  3.38e-03  2.43e-05  1.82e-02  9.92e+05
+ 130   1.4206089e+00   7.7052713e-01  3.20e-03  2.30e-05  1.55e-02  1.15e+06
+ 131   1.3239343e+00   7.8856106e-01  2.61e-03  1.87e-05  1.33e-02  1.31e+06
+ 132   1.2692385e+00   8.0057270e-01  2.26e-03  1.63e-05  1.20e-02  1.45e+06
+ 133   1.1839759e+00   8.1910577e-01  1.77e-03  1.27e-05  1.28e-02  1.94e+06
+ 134   1.1709604e+00   8.2324330e-01  1.69e-03  1.21e-05  1.22e-02  2.02e+06
+ 135   1.1147324e+00   8.3955039e-01  1.32e-03  9.47e-06  1.00e-02  2.45e+06
+ 136   1.1057235e+00   8.4662971e-01  1.26e-03  9.05e-06  9.07e-03  2.70e+06
+ 137   1.0745357e+00   8.6203549e-01  1.06e-03  7.60e-06  6.92e-03  3.48e+06
+ 138   1.0437731e+00   8.7309016e-01  8.60e-04  6.18e-06  5.27e-03  4.44e+06
+ 139   1.0240866e+00   8.8033589e-01  7.35e-04  5.28e-06  4.20e-03  5.47e+06
+ 140   9.9883607e-01   8.8847119e-01  5.75e-04  4.13e-06  2.98e-03  7.48e+06
+ 141   9.8635219e-01   8.9236684e-01  4.96e-04  3.56e-06  2.38e-03  9.14e+06
+ 142   9.6900146e-01   8.9530685e-01  3.87e-04  2.78e-06  1.90e-03  1.10e+07
+ 143   9.6754546e-01   8.9700587e-01  3.78e-04  2.71e-06  1.66e-03  1.25e+07
+ 144   9.5324271e-01   9.0098990e-01  2.87e-04  2.06e-06  1.06e-03  1.84e+07
+ 145   9.4391660e-01   9.0283700e-01  2.28e-04  1.64e-06  7.79e-04  2.39e+07
+ 146   9.3433982e-01   9.0481076e-01  1.67e-04  1.20e-06  4.82e-04  3.48e+07
+ 147   9.3156170e-01   9.0554794e-01  1.50e-04  1.07e-06  8.46e-04  4.21e+07
+ 148   9.2616997e-01   9.0616666e-01  1.15e-04  8.25e-07  6.55e-04  5.13e+07
+ 149   9.2152229e-01   9.0703455e-01  8.46e-05  6.07e-07  4.19e-04  7.30e+07
+ 150   9.2018625e-01   9.0733596e-01  7.58e-05  5.44e-07  3.42e-04  8.58e+07
+ 151   9.1725311e-01   9.0769018e-01  5.65e-05  4.05e-07  2.53e-04  1.08e+08
+ 152   9.1499298e-01   9.0794467e-01  4.14e-05  2.96e-07  1.98e-04  1.32e+08
+ 153   9.1380623e-01   9.0819714e-01  3.33e-05  2.38e-07  1.49e-04  1.69e+08
+ 154   9.1201617e-01   9.0831979e-01  2.12e-05  1.50e-07  1.25e-04  1.96e+08
+ 155   9.1106711e-01   9.0850964e-01  1.45e-05  1.02e-07  9.49e-05  2.58e+08
+ 156   9.1054946e-01   9.0867423e-01  1.07e-05  7.47e-08  6.92e-05  3.56e+08
+ 157   9.1015142e-01   9.0877193e-01  7.89e-06  5.43e-08  5.35e-05  4.63e+08
+ 158   9.0985367e-01   9.0885679e-01  5.80e-06  3.89e-08  4.00e-05  6.26e+08
+ 159   9.0954629e-01   9.0891586e-01  3.95e-06  2.31e-08  3.06e-05  8.31e+08
+ 160   9.0939259e-01   9.0896953e-01  2.93e-06  1.50e-08  2.22e-05  1.18e+09
+ 161   9.0929871e-01   9.0899121e-01  2.43e-06  1.02e-08  1.87e-05  1.43e+09
+ 162   9.0922473e-01   9.0901869e-01  1.98e-06  6.31e-09  1.43e-05  1.95e+09
+ 163   9.0919137e-01   9.0903363e-01  1.81e-06  4.61e-09  1.18e-05  2.45e+09
+ 164   9.0916242e-01   9.0905144e-01  1.80e-06  3.18e-09  8.71e-06  3.50e+09
+ 165   9.0913331e-01   9.0906390e-01  2.53e-06  1.77e-09  6.42e-06  5.02e+09
+ 166   9.0912469e-01   9.0906674e-01  2.82e-06  1.43e-09  5.85e-06  5.61e+09
+ 167   9.0911338e-01   9.0907255e-01  3.76e-06  9.49e-10  4.64e-06  7.41e+09
+ 168   9.0911073e-01   9.0907480e-01  3.35e-06  8.64e-10  4.15e-06  8.46e+09
+ 169   9.0910417e-01   9.0908035e-01  3.27e-06  4.96e-10  2.97e-06  1.28e+10
+ 170   9.0909981e-01   9.0908463e-01  2.97e-06  3.53e-10  2.01e-06  2.07e+10
+ 171   9.0909730e-01   9.0908732e-01  2.73e-06  2.76e-10  1.20e-06  3.91e+10
+ 172   9.0909573e-01   9.0908848e-01  2.70e-06  2.46e-10  7.79e-07  6.55e+10
+ 173   9.0909313e-01   9.0908926e-01  3.23e-06  1.78e-10  4.36e-07  1.28e+11
+ 174   9.0909149e-01   9.0908955e-01  7.16e-06  1.25e-10  2.98e-07  1.94e+11
+ 175   9.0909109e-01   9.0908968e-01  8.29e-06  1.32e-10  2.34e-07  2.57e+11
+ 176   9.0909062e-01   9.0908982e-01  9.90e-06  7.44e-11  1.59e-07  3.86e+11
+  *    9.0916242e-01   9.0905144e-01  1.80e-06  3.18e-09  8.71e-06  3.50e+09
+Barrier time = 31.84 sec. (45416.97 ticks)
+Parallel mode: deterministic, using up to 8 threads for concurrent optimization:
+ * Starting dual Simplex on 1 thread...
+ * Starting primal Simplex on 1 thread...
+
+Dual crossover.
+  Dual:  Fixing 4 variables.
+        3 DMoves:  Infeasibility  1.04148493e+00  Objective  1.52215326e-01
+        0 DMoves:  Infeasibility  1.04148493e+00  Objective  1.52215325e-01
+  Dual:  Pushed 0, exchanged 4.
+  Primal:  Fixing 341367 variables.
+   341366 PMoves:  Infeasibility  1.24539942e-01  Objective  1.06402523e+00
+   339597 PMoves:  Infeasibility  6.77899923e-02  Objective  1.08583102e+00
+   337964 PMoves:  Infeasibility  6.01388205e-02  Objective  1.09728524e+00
+   334012 PMoves:  Infeasibility  5.19968699e-02  Objective  1.12016053e+00
+   328095 PMoves:  Infeasibility  5.07394905e-02  Objective  1.12017456e+00
+   322847 PMoves:  Infeasibility  4.72808667e-02  Objective  1.12025060e+00
+   317288 PMoves:  Infeasibility  4.33157410e-02  Objective  1.12026361e+00
+   311518 PMoves:  Infeasibility  4.25782341e-02  Objective  1.12028523e+00
+   305677 PMoves:  Infeasibility  3.82173926e-02  Objective  1.12032675e+00
+   299736 PMoves:  Infeasibility  3.46859867e-02  Objective  1.12038508e+00
+   293811 PMoves:  Infeasibility  3.30210876e-02  Objective  1.12040604e+00
+   287717 PMoves:  Infeasibility  3.30321070e-02  Objective  1.12045573e+00
+   282391 PMoves:  Infeasibility  2.43637601e-02  Objective  1.12047210e+00
+   276552 PMoves:  Infeasibility  2.43762133e-02  Objective  1.12048489e+00
+   270488 PMoves:  Infeasibility  2.43904848e-02  Objective  1.12050877e+00
+   264275 PMoves:  Infeasibility  2.41403539e-02  Objective  1.12051502e+00
+   257567 PMoves:  Infeasibility  2.31382363e-02  Objective  1.12091211e+00
+   250351 PMoves:  Infeasibility  2.27778915e-02  Objective  1.12090990e+00
+   244512 PMoves:  Infeasibility  2.27795464e-02  Objective  1.12100801e+00
+   238162 PMoves:  Infeasibility  2.25541868e-02  Objective  1.12101889e+00
+   236633 PMoves:  Infeasibility  2.25546815e-02  Objective  1.12101871e+00
+   234945 PMoves:  Infeasibility  2.25521674e-02  Objective  1.12402417e+00
+   232755 PMoves:  Infeasibility  2.25515223e-02  Objective  1.12424923e+00
+   231143 PMoves:  Infeasibility  2.25478623e-02  Objective  1.13831417e+00
+   229615 PMoves:  Infeasibility  2.25464852e-02  Objective  1.13835831e+00
+   228079 PMoves:  Infeasibility  2.25460049e-02  Objective  1.13598627e+00
+   226562 PMoves:  Infeasibility  2.25459365e-02  Objective  1.12655500e+00
+   225167 PMoves:  Infeasibility  2.25416356e-02  Objective  1.13112999e+00
+   223698 PMoves:  Infeasibility  2.25380450e-02  Objective  1.15985419e+00
+   221539 PMoves:  Infeasibility  2.25367634e-02  Objective  1.12276932e+00
+   220225 PMoves:  Infeasibility  2.25365397e-02  Objective  1.12982444e+00
+   218120 PMoves:  Infeasibility  2.25327113e-02  Objective  1.13351793e+00
+   216697 PMoves:  Infeasibility  2.25321817e-02  Objective  1.13372026e+00
+   215320 PMoves:  Infeasibility  2.25311654e-02  Objective  1.13480989e+00
+   213424 PMoves:  Infeasibility  2.25306234e-02  Objective  1.13549886e+00
+   211880 PMoves:  Infeasibility  2.25292775e-02  Objective  1.13588999e+00
+   210910 PMoves:  Infeasibility  2.25292614e-02  Objective  1.13612822e+00
+   209421 PMoves:  Infeasibility  2.25282355e-02  Objective  1.13744757e+00
+   206975 PMoves:  Infeasibility  2.25263617e-02  Objective  1.13745289e+00
+   205234 PMoves:  Infeasibility  2.25257989e-02  Objective  1.13918781e+00
+   203358 PMoves:  Infeasibility  2.25220144e-02  Objective  1.13945875e+00
+   201707 PMoves:  Infeasibility  2.25220145e-02  Objective  1.13970505e+00
+   200301 PMoves:  Infeasibility  2.25205006e-02  Objective  1.14045175e+00
+   198924 PMoves:  Infeasibility  2.25225211e-02  Objective  1.14045185e+00
+   197329 PMoves:  Infeasibility  2.25207483e-02  Objective  1.14054002e+00
+   196128 PMoves:  Infeasibility  2.25175464e-02  Objective  1.14077588e+00
+   Elapsed crossover time = 9.72 sec. (10000.23 ticks, 194868 PMoves)
+   194427 PMoves:  Infeasibility  2.25131716e-02  Objective  1.14211649e+00
+   192185 PMoves:  Infeasibility  2.25070441e-02  Objective  1.14231470e+00
+   190644 PMoves:  Infeasibility  2.25068758e-02  Objective  1.14270165e+00
+   188813 PMoves:  Infeasibility  2.25041111e-02  Objective  1.14280575e+00
+   187220 PMoves:  Infeasibility  2.25028899e-02  Objective  1.14285427e+00
+   185535 PMoves:  Infeasibility  2.25001936e-02  Objective  1.14308248e+00
+   183730 PMoves:  Infeasibility  2.25001438e-02  Objective  1.14307660e+00
+   182086 PMoves:  Infeasibility  2.24964575e-02  Objective  1.14297903e+00
+   179388 PMoves:  Infeasibility  2.24937122e-02  Objective  1.14612807e+00
+   177598 PMoves:  Infeasibility  2.24925308e-02  Objective  1.14662522e+00
+   176136 PMoves:  Infeasibility  2.24900640e-02  Objective  1.14758368e+00
+   174103 PMoves:  Infeasibility  2.24853754e-02  Objective  1.14803818e+00
+   172545 PMoves:  Infeasibility  2.24846818e-02  Objective  1.14828649e+00
+   171161 PMoves:  Infeasibility  2.24834588e-02  Objective  1.14925967e+00
+   169774 PMoves:  Infeasibility  2.24225659e-02  Objective  1.14932609e+00
+   168227 PMoves:  Infeasibility  2.24214234e-02  Objective  1.14962262e+00
+   166966 PMoves:  Infeasibility  2.24186648e-02  Objective  1.15311968e+00
+   165062 PMoves:  Infeasibility  2.24154879e-02  Objective  1.15312141e+00
+   162769 PMoves:  Infeasibility  2.24072253e-02  Objective  1.15342214e+00
+   160993 PMoves:  Infeasibility  2.24068703e-02  Objective  1.15429222e+00
+   Elapsed crossover time = 25.16 sec. (20000.50 ticks, 159473 PMoves)
+   159201 PMoves:  Infeasibility  2.24051039e-02  Objective  1.15427692e+00
+   157398 PMoves:  Infeasibility  2.24029825e-02  Objective  1.15463083e+00
+   156018 PMoves:  Infeasibility  2.24025520e-02  Objective  1.15552948e+00
+   154290 PMoves:  Infeasibility  2.24025521e-02  Objective  1.15557620e+00
+   152927 PMoves:  Infeasibility  2.24004524e-02  Objective  1.15616849e+00
+   150873 PMoves:  Infeasibility  2.23977173e-02  Objective  1.15641908e+00
+   148506 PMoves:  Infeasibility  2.23945364e-02  Objective  1.15607376e+00
+   146885 PMoves:  Infeasibility  2.23935294e-02  Objective  1.15765960e+00
+   144742 PMoves:  Infeasibility  2.23883636e-02  Objective  1.15976321e+00
+   143019 PMoves:  Infeasibility  2.23860213e-02  Objective  1.15981184e+00
+   141356 PMoves:  Infeasibility  2.23845922e-02  Objective  1.16136082e+00
+   139995 PMoves:  Infeasibility  2.23845921e-02  Objective  1.16134132e+00
+   138643 PMoves:  Infeasibility  2.23833385e-02  Objective  1.16185701e+00
+   137397 PMoves:  Infeasibility  2.23810752e-02  Objective  1.16252683e+00
+   135505 PMoves:  Infeasibility  2.23800293e-02  Objective  1.16549814e+00
+   133771 PMoves:  Infeasibility  2.23783893e-02  Objective  1.16589896e+00
+   131823 PMoves:  Infeasibility  2.23775535e-02  Objective  1.16699704e+00
+   130047 PMoves:  Infeasibility  2.23766241e-02  Objective  1.16721202e+00
+   128477 PMoves:  Infeasibility  2.23745876e-02  Objective  1.16744843e+00
+   Elapsed crossover time = 42.20 sec. (30072.66 ticks, 128477 PMoves)
+   127079 PMoves:  Infeasibility  2.23735543e-02  Objective  1.16810958e+00
+   125428 PMoves:  Infeasibility  2.23730918e-02  Objective  1.16817610e+00
+   123883 PMoves:  Infeasibility  2.23690473e-02  Objective  1.16736461e+00
+   122049 PMoves:  Infeasibility  2.23655509e-02  Objective  1.16468938e+00
+   119842 PMoves:  Infeasibility  2.23608188e-02  Objective  1.16031062e+00
+   118147 PMoves:  Infeasibility  2.23608188e-02  Objective  1.16300866e+00
+   116187 PMoves:  Infeasibility  2.23589975e-02  Objective  1.16427844e+00
+   114508 PMoves:  Infeasibility  2.23565582e-02  Objective  1.16460731e+00
+   113152 PMoves:  Infeasibility  2.23553059e-02  Objective  1.16711951e+00
+   111848 PMoves:  Infeasibility  7.42217713e-03  Objective  1.16712126e+00
+   110294 PMoves:  Infeasibility  7.42039220e-03  Objective  1.16730552e+00
+   108673 PMoves:  Infeasibility  7.42000399e-03  Objective  1.16815731e+00
+   106826 PMoves:  Infeasibility  7.41461604e-03  Objective  1.16874121e+00
+   104613 PMoves:  Infeasibility  7.41289049e-03  Objective  1.17140535e+00
+   102891 PMoves:  Infeasibility  7.41251276e-03  Objective  1.17221720e+00
+   Elapsed crossover time = 60.59 sec. (40072.80 ticks, 101533 PMoves)
+   100964 PMoves:  Infeasibility  7.40942804e-03  Objective  1.17238641e+00
+    99277 PMoves:  Infeasibility  7.40685801e-03  Objective  1.17260785e+00
+    97552 PMoves:  Infeasibility  7.40629438e-03  Objective  1.17027369e+00
+    95766 PMoves:  Infeasibility  7.40564414e-03  Objective  1.17001074e+00
+    94311 PMoves:  Infeasibility  7.40368731e-03  Objective  1.17022213e+00
+    89745 PMoves:  Infeasibility  7.39910941e-03  Objective  1.17038965e+00
+    86836 PMoves:  Infeasibility  7.39664057e-03  Objective  1.17021297e+00
+    85081 PMoves:  Infeasibility  7.39728470e-03  Objective  1.17039864e+00
+    83288 PMoves:  Infeasibility  7.39506140e-03  Objective  1.17043276e+00
+    81656 PMoves:  Infeasibility  7.39290493e-03  Objective  1.17045484e+00
+    80068 PMoves:  Infeasibility  7.39042538e-03  Objective  1.17047302e+00
+    78364 PMoves:  Infeasibility  7.38970493e-03  Objective  1.17051528e+00
+    76934 PMoves:  Infeasibility  7.38802336e-03  Objective  1.17060621e+00
+    75031 PMoves:  Infeasibility  7.38170756e-03  Objective  1.17718664e+00
+   Elapsed crossover time = 79.14 sec. (50073.29 ticks, 73805 PMoves)
+    73054 PMoves:  Infeasibility  7.37916671e-03  Objective  1.17696710e+00
+    71124 PMoves:  Infeasibility  7.37484081e-03  Objective  1.17736839e+00
+    69397 PMoves:  Infeasibility  7.36955287e-03  Objective  1.17744992e+00
+    67644 PMoves:  Infeasibility  7.36894767e-03  Objective  1.17765609e+00
+    65712 PMoves:  Infeasibility  7.36645491e-03  Objective  1.17904300e+00
+    63806 PMoves:  Infeasibility  7.36537065e-03  Objective  1.17943909e+00
+    62348 PMoves:  Infeasibility  7.36494462e-03  Objective  1.17955077e+00
+    60472 PMoves:  Infeasibility  7.35697005e-03  Objective  1.17953413e+00
+    58615 PMoves:  Infeasibility  7.34817990e-03  Objective  1.17946749e+00
+    55710 PMoves:  Infeasibility  7.34543738e-03  Objective  1.17939634e+00
+   Elapsed crossover time = 99.25 sec. (60073.65 ticks, 50765 PMoves)
+    50154 PMoves:  Infeasibility  7.34854792e-03  Objective  1.17943105e+00
+    45137 PMoves:  Infeasibility  7.34481055e-03  Objective  1.17994228e+00
+    41250 PMoves:  Infeasibility  5.40086761e-03  Objective  1.18773519e+00
+    37311 PMoves:  Infeasibility  5.40255877e-03  Objective  1.19866991e+00
+    32310 PMoves:  Infeasibility  5.40251479e-03  Objective  1.20124401e+00
+    27339 PMoves:  Infeasibility  5.40170713e-03  Objective  1.20811268e+00
+    23664 PMoves:  Infeasibility  5.40191513e-03  Objective  1.21469123e+00
+    19871 PMoves:  Infeasibility  5.40185311e-03  Objective  1.21998403e+00
+    16537 PMoves:  Infeasibility  5.39468638e-03  Objective  1.22395400e+00
+    11692 PMoves:  Infeasibility  9.34791722e-05  Objective  1.22753306e+00
+   Elapsed crossover time = 118.58 sec. (70074.01 ticks, 10240 PMoves)
+     7487 PMoves:  Infeasibility  9.23968857e-05  Objective  1.22907837e+00
+        0 PMoves:  Infeasibility  8.93469717e-05  Objective  1.22315093e+00
+  Primal:  Pushed 214503, exchanged 126864.
+Elapsed time = 161.77 sec. (128212.41 ticks, 1 iterations)
+
+Iteration log . . .
+Iteration:     1   Scaled dual infeas =             0.002320
+Iteration:     9   Scaled dual infeas =             0.000146
+Iteration:    13   Scaled dual infeas =             0.000110
+Iteration:    21   Scaled dual infeas =             0.000101
+Perturbation started.
+Iteration:   202   Scaled dual infeas =             0.000022
+Iteration:   519   Scaled dual infeas =             0.000000
+Elapsed time = 174.97 sec. (138213.74 ticks, 547 iterations)
+Iteration:   833   Scaled dual infeas =             0.000000
+Iteration:   935   Dual objective     =             0.072745
+Elapsed time = 189.39 sec. (148253.53 ticks, 1251 iterations)
+Iteration:  1251   Dual objective     =             0.079613

@@ -12,8 +12,8 @@
         {
             "codecMib": 106,
             "encoding": "UTF-8",
-            "file": "MESSAGE/hhi_constraint.gms",
-            "name": "hhi_constraint.gms",
+            "file": "MESSAGE/hhi_penalty.gms",
+            "name": "hhi_penalty.gms",
             "type": "gms"
         },
         {

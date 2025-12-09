@@ -11,7 +11,7 @@ $ONGLOBAL
 
 ** scenario/case selection - this must match the name of the MsgData_<%%%>.gdx input data file **
 *$SETGLOBAL data "NP_SSP2_6.2_base_scenario"
-$SETGLOBAL data "hhi_test_Westeros_limit"
+$SETGLOBAL data "alps_hhi_SSP2_hhi_PE_l100p"
 
 * MACRO mode. This can take 3 possible values, only 2 of which are usable with this file:
 *
@@ -66,8 +66,7 @@ $SETGLOBAL SLACK_LAND_TYPE_LO "*"
 $SETGLOBAL SLACK_RELATION_BOUND_UP "*"
 $SETGLOBAL SLACK_RELATION_BOUND_LO "*"
 
-*$SETGLOBAL HHI_MCMA "0"
-$SETGLOBAL HHI_CONSTRAINT "1"
+$SETGLOBAL HHI_PENALTY "1"
     
 *----------------------------------------------------------------------------------------------------------------------*
 * launch the MESSAGEix or MESSAGEix-MACRO run file with the settings as defined above                                      *

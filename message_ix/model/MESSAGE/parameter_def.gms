@@ -974,7 +974,6 @@ Parameters
     cap_comm          'Equivalent to MESSAGE_CAP_COMM'                 / %MESSAGE_CAP_COMM% /
     ctr               counter parameter for loops
     status(*,*)       model solution status parameter for log writing
-    HHI_MCMA               'Indicator for whether to run the HHI and cost optimization'
 ;
 
 *----------------------------------------------------------------------------------------------------------------------*
@@ -1008,7 +1007,7 @@ SCALAR
 ;
 $ENDIF
 
-$IFTHEN %HHI_WS% == "1"
+$IFTHEN %HHI_PENALTY% == "1"
 VARIABLE
     WS_OBJ                              Weighted sum objective for cost-HHI trade-off
 ;
