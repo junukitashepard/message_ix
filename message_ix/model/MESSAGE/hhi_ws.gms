@@ -21,7 +21,7 @@ Equations
     EQ_HHI_S                        Rotated cone constraint for SOCP
     EQ_PSEUDO_HHI_TOTAL             Sum of all Pseudo_HHI_S variables
     EQ_COM_TOTAL_SUM                Sum of all COM_TOTAL variables
-    EQ_PSEUDO_HHI_BOUND             Bound Pseudo_HHI by COM_TOTAL_SUM and hhi_max_total
+*    EQ_PSEUDO_HHI_BOUND             Bound Pseudo_HHI by COM_TOTAL_SUM and hhi_max_total
     EQ_WS_OBJ                       Weighted sum objective for cost-HHI trade-off
 ;
 
@@ -136,7 +136,7 @@ EQ_COM_TOTAL_SUM..
 * Factor of 2 correction: Pseudo_HHI_TOTAL = 0.5 * sum_t(HHI[t] * COM_TOTAL[t])
 * So bound uses hhi_max_total/2 to enforce actual HHI ≤ hhi_max_total
 ***
-EQ_PSEUDO_HHI_BOUND..
+EQ_PSEUDO_HHI_BOUND$(hhi_max_total < 0.999)..
     Pseudo_HHI_TOTAL =L= COM_TOTAL_SUM * (hhi_max_total / 2);
 
 ***
