@@ -1008,6 +1008,36 @@ SCALAR
 ;
 $ENDIF
 
+$IFTHEN %HHI_WS% == "1"
+VARIABLE
+    WS_OBJ                              Weighted sum objective for cost-HHI trade-off
+;
+
+POSITIVE VARIABLE
+    HHI_TOTAL                                   Herfindahl-Hirschman Index for diversity
+    COST_TOTAL                                  Total system costs
+    COM_TOTAL                                   Total commodity by level and node (the denominator of HHI before 2)
+    TEC_TOTAL                                   Total technology by commodity-level-node (the numerator of HHI before 2)
+    HHI_APPROX                                  Auxiliary variable for penalty: TEC_TOTAL <= HHI_APPROX
+    HHI_APPROX_TOTAL                            Sum of all HHI_APPROX (for penalty formulation)
+    COM_TOTAL_SUM                               Sum of all COM_TOTAL (for normalization)
+    HHI_COUNT                                   Total number of commodity-level-node that should be averaged for system average HHI
+;
+
+PARAMETER
+    include_commodity_hhi(node, commodity, level)       binary for whether to include commodity in HHI (1 = include)
+;
+
+SCALAR
+    lambda_ws           'Weight on cost objective (1-lambda on HHI), range [0,1]'
+    cost_max_total      'Maximum cost for normalization'
+    hhi_max_total       'Maximum HHI for normalization'
+    hhi_scale           'Scaling factor for Pseudo_HHI_TOTAL to make units comparable to cost'
+    concentration_penalty    "Penalty factor for concentrated technology portfolios" / 1.0 /
+
+;
+$ENDIF
+
 $IFTHEN %HHI_CONSTRAINT% == "1"
 
 PARAMETER

@@ -176,6 +176,16 @@ execute_load '%in%',
 ;
 $ENDIF
 
+$IFTHEN %HHI_PENALTY% == "1"
+execute_load '%in%',
+  include_commodity_hhi
+  lambda_ws
+  cost_max_total
+  hhi_max_total
+  hhi_scale
+;
+$ENDIF
+
 $IFTHEN %HHI_CONSTRAINT% == "1"
 execute_load '%in%',
   hhi_limit
