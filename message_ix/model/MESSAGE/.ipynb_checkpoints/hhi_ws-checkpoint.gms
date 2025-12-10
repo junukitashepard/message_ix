@@ -140,8 +140,8 @@ EQ_COM_TOTAL_SUM..
 * Factor of 2 correction: Pseudo_HHI_TOTAL = 0.5 * sum_t(HHI[t] * COM_TOTAL[t])
 * So bound uses hhi_max_total/2 to enforce actual HHI ≤ hhi_max_total
 ***
-EQ_PSEUDO_HHI_BOUND..
-    Pseudo_HHI_TOTAL =L= COM_TOTAL_SUM * (hhi_max_total / 2);
+ EQ_PSEUDO_HHI_BOUND..
+     Pseudo_HHI_TOTAL =L= COM_TOTAL_SUM * (hhi_max_total / 2);
 
 ***
 * Weighted sum objective for cost-HHI trade-off

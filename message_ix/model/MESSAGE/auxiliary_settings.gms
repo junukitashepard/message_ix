@@ -30,6 +30,10 @@ option MCP = PATH ;
 option solveopt=merge ; # keep results of previous runs in memory
 $SETENV GDXCOMPRESS 1   # reduces the size of the gdx export file
 
+$IFTHEN HHI_CONSTRAINT=1
+option calcqcpduals=0
+$ENDIF
+
 %calibration%$ONTEXT
 $ONLISTING
 option limrow = 1e6 ;   # number of rows (equations) reported in lst file
