@@ -21,7 +21,7 @@ Equations
     EQ_HHI_S                        Rotated cone constraint for SOCP
     EQ_PSEUDO_HHI_TOTAL             Sum of all Pseudo_HHI_S variables
     EQ_COM_TOTAL_SUM                Sum of all COM_TOTAL variables
-*    EQ_PSEUDO_HHI_BOUND             Bound Pseudo_HHI by COM_TOTAL_SUM and hhi_max_total
+    EQ_PSEUDO_HHI_BOUND             Bound Pseudo_HHI by COM_TOTAL_SUM and hhi_max_total
     EQ_WS_OBJ                       Weighted sum objective for cost-HHI trade-off
 ;
 
@@ -51,6 +51,7 @@ EQ_COM_TOTAL(location,commodity,level,year,time)$(
             map_tec_lifetime(location,tec,vintage,year)
             AND map_tec_act(location,tec,year,mode,time)
             AND output(location,tec,vintage,year,mode,node,commodity,level,time,time2)
+            AND include_commodity_hhi(location,commodity,level)
         ),
             output(location,tec,vintage,year,mode,node,commodity,level,time,time2)
             * duration_time_rel(time2,time)
@@ -71,6 +72,8 @@ EQ_TEC_TOTAL(location,commodity,level,year,time,tec)$(
             map_tec_lifetime(location,tec,vintage,year)
             AND map_tec_act(location,tec,year,mode,time)
             AND output(location,tec,vintage,year,mode,node,commodity,level,time,time2)
+            AND include_commodity_hhi(location,commodity,level)
+
         ),
             output(location,tec,vintage,year,mode,node,commodity,level,time,time2)
             * duration_time_rel(time2,time)
@@ -91,6 +94,7 @@ EQ_HHI_S(location,commodity,level,year,time,tec)$(
         map_tec_lifetime(location,tec,vintage,year)
         AND map_tec_act(location,tec,year,mode,time)
         AND output(location,tec,vintage,year,mode,node,commodity,level,time,time2)
+        AND include_commodity_hhi(location,commodity,level)
     ), 1)
 )..
     2 * Pseudo_HHI_S(location,commodity,level,year,time,tec)
@@ -136,7 +140,7 @@ EQ_COM_TOTAL_SUM..
 * Factor of 2 correction: Pseudo_HHI_TOTAL = 0.5 * sum_t(HHI[t] * COM_TOTAL[t])
 * So bound uses hhi_max_total/2 to enforce actual HHI ≤ hhi_max_total
 ***
-EQ_PSEUDO_HHI_BOUND$(hhi_max_total < 0.999)..
+EQ_PSEUDO_HHI_BOUND..
     Pseudo_HHI_TOTAL =L= COM_TOTAL_SUM * (hhi_max_total / 2);
 
 ***
@@ -147,12 +151,18 @@ EQ_PSEUDO_HHI_BOUND$(hhi_max_total < 0.999)..
 * User provides hhi_scale to balance units (e.g., 1/expected_demand if cost in $/GWa)
 * User sweeps lambda_ws ∈ [0,1] to trace Pareto frontier
 ***
-EQ_WS_OBJ..
-    WS_OBJ =E= (lambda_ws * (COST_TOTAL / cost_max_total))
-                 + ((1 - lambda_ws) * hhi_scale * Pseudo_HHI_TOTAL);
-
 * Set variable bounds for SOCP
 * Lower bounds allow variables to be zero
 Pseudo_HHI_S.LO(location,commodity,level,year,time,tec) = 0;
 COM_TOTAL.LO(location,commodity,level,year,time) = 0;
 TEC_TOTAL.LO(location,commodity,level,year,time,tec) = 0;
+
+* Set bounds for true pure cost optimization when lambda is 1
+$IFTHEN lambda_ws == 1
+   Pseudo_HHI_s.FX(*) = 0;
+   Pseudo_HHI_TOTAL.FX = 0;
+$ENDIF
+
+EQ_WS_OBJ..
+    WS_OBJ =E= (lambda_ws * (COST_TOTAL / cost_max_total))
+                 + ((1 - lambda_ws) * hhi_scale * Pseudo_HHI_TOTAL);
