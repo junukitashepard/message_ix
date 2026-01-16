@@ -40,9 +40,7 @@ idna==3.7
     # via requests
 imagesize==1.4.1
     # via sphinx
-importlib-metadata==8.7.0
-    # via ixmp
-ixmp @ git+https://github.com/iiasa/ixmp.git@1730afd24238b4dad88a89c2d58d0fed2cd19dd0
+ixmp @ git+https://github.com/iiasa/ixmp.git@main
     # via -r requirements.in
 jinja2==3.1.6
     # via sphinx
@@ -109,8 +107,6 @@ requests==2.32.4
     # via sphinx
 roman-numerals-py==3.1.0
     # via sphinx
-setuptools==80.9.0
-    # via sphinxcontrib-bibtex
 six==1.16.0
     # via
     #   latexcodec
@@ -159,11 +155,9 @@ typing-extensions==4.14.1
     #   pint
 tzdata==2025.2
     # via pandas
-urllib3==2.5.0
+urllib3==2.6.3
     # via requests
 xarray==2025.7.1
     # via
     #   genno
     #   ixmp
-zipp==3.23.0
-    # via importlib-metadata
