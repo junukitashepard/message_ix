@@ -71,7 +71,7 @@ Y_TEC.lo(node,commodity,level,year,time,tec) = 1e-6;
 DEF_HHI_LIMIT(node,commodity,level,year,time)$(
     year(year) AND hhi_limit(node,commodity,level,year,time) > 0
     )..
-    SUM(tec, sqr( Y_TEC(node,commodity,level,year,time,tec) ))
+    SUM(tec, sqr( Y_TEC(node,commodity,level,year,time,tec)))
     =L=
     hhi_limit(node,commodity,level,year,time)
   * sqr( Y_MARKET(node,commodity,level,year,time));
