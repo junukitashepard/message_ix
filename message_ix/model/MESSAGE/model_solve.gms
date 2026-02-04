@@ -123,15 +123,54 @@ else
         ) ;
 
 * fix all variables of the current iteration period 'year_all' to the optimal levels
-        EXT.fx(node,commodity,grade,year_all) =  EXT.l(node,commodity,grade,year_all) ;
+* This prevents EXTRACTION_EQUIVALENCE infeasibility
+        EXT.fx(node,commodity,grade,year_all) = EXT.l(node,commodity,grade,year_all) ;
+
+* This prevents CAPACITY_MAINTENANCE_NEW infeasibility
         CAP_NEW.fx(node,tec,year_all) = CAP_NEW.l(node,tec,year_all) ;
-        CAP.fx(node,tec,year_all2,year_all)$( map_period(year_all2,year_all) ) = CAP.l(node,tec,year_all,year_all2) ;
-        ACT.fx(node,tec,year_all2,year_all,mode,time)$( map_period(year_all2,year_all) )
-            = ACT.l(node,tec,year_all2,year_all,mode,time) ;
+
+* This prevents CAPACITY_CONSTRAINT infeasibility
+        CAP.fx(node,tec,vintage,year_all) = CAP.l(node,tec,vintage,year_all) ;
+
+* This prevents ACTIVITY_BOUND infeasibility
+        ACT.fx(node,tec,vintage,year_all,mode,time) = ACT.l(node,tec,vintage,year_all,mode,time) ;
+
+* This prevents CAP_NEW_UP and CAP_NEW_LO infeasibility
         CAP_NEW_UP.fx(node,tec,year_all) = CAP_NEW_UP.l(node,tec,year_all) ;
         CAP_NEW_LO.fx(node,tec,year_all) = CAP_NEW_LO.l(node,tec,year_all) ;
         ACT_UP.fx(node,tec,year_all,time) = ACT_UP.l(node,tec,year_all,time) ;
         ACT_LO.fx(node,tec,year_all,time) = ACT_LO.l(node,tec,year_all,time) ;
+
+* This prevents RENEWABLES_EQUIVALENCE infeasibility
+        REN.fx(node,tec,commodity,grade,year_all,time) = REN.l(node,tec,commodity,grade,year_all,time) ;
+
+* This prevents STOCKS_BALANCE infeasibility
+        STOCK.fx(node,commodity,level,year_all) = STOCK.l(node,commodity,level,year_all) ;
+        STOCK_CHG.fx(node,commodity,level,year_all,time) = STOCK_CHG.l(node,commodity,level,year_all,time) ;
+
+* This prevents LAND_USE_BALANCE infeasibility
+        LAND.fx(node,land_scenario,year_all) = LAND.l(node,land_scenario,year_all) ;
+
+* This prevents STORAGE_BALANCE infeasibility
+        STORAGE.fx(node,tec,mode,level,commodity,year_all,time) = 
+            STORAGE.l(node,tec,mode,level,commodity,year_all,time) ;
+        STORAGE_CHARGE.fx(node,tec,mode,level,commodity,year_all,time) = 
+            STORAGE_CHARGE.l(node,tec,mode,level,commodity,year_all,time) ;
+
+* This prevents CAP_FIRM infeasibility
+        CAP_FIRM.fx(node,tec,commodity,level,year_all) = 
+            CAP_FIRM.l(node,tec,commodity,level,year_all) ;
+
+* This prevents EMISSIONS_TRACKING infeasibility
+        EMISS.fx(node,emission,type_tec,year_all) = EMISS.l(node,emission,type_tec,year_all) ;
+
+* This prevents RELATIONS infeasibility
+        REL.fx(relation,node,year_all) = REL.l(relation,node,year_all) ;
+
+* This prevents COMMODITY_USE and COMMODITY_BALANCE infeasibility
+        COMMODITY_USE.fx(node,commodity,level,year_all) = COMMODITY_USE.l(node,commodity,level,year_all) ;
+        COMMODITY_BALANCE.fx(node,commodity,level,year_all,time) = 
+            COMMODITY_BALANCE.l(node,commodity,level,year_all,time) ;
 
     ) ; # end of the recursive-dynamic loop
 
